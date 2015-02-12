@@ -1,0 +1,44 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:kElements="clr-namespace:Kinect"
+                    xmlns:k="http://schemas.microsoft.com/kinect/2013">
+
+
+    <!-- SegmentationDisplay STYLES -->
+    <!-- Alle hier angegebenen Styles werden in der SegmentationDisplay verwendet -->
+    
+    <!--  -->
+    <Style x:Name="scrollElemente" TargetType="{x:Type ScrollViewer}">
+        <Setter Property="Margin" Value="10,0,10,0" />
+        <Setter Property="Background" Value="Black"/>
+    </Style>
+
+    <!--  -->
+    <Style x:Key="HoverImageStyle" TargetType="{x:Type kElements:KinImage}">
+        <Setter Property="Margin" Value="0,0,15,15" />
+        <Setter Property="RenderTransform">
+            <Setter.Value>
+                <ScaleTransform ScaleX="1" ScaleY="1" CenterY="0" CenterX="{DynamicResource {x:Static SystemParameters.IconHeightKey}}"/>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="IsHandPointerOver" Value="True">
+                <Trigger.EnterActions>
+                    <BeginStoryboard Storyboard="{StaticResource expandStoryboard}" />
+                </Trigger.EnterActions>
+                <Trigger.ExitActions>
+                    <BeginStoryboard Storyboard="{StaticResource shrinkStoryboard}" />
+                </Trigger.ExitActions>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <!-- Style für KinectCircleButton im Stackpanel für Segmentation-Werkzeuge und für Löschen Button bei ausgewählten Segmenten -->
+    <Style x:Key="segmentationbtn1" BasedOn="{StaticResource circle}" TargetType="kElements:KinectCircleButton">
+        <Setter Property="Height" Value="100"/>
+        <Setter Property="Margin" Value="0,1,1,0"/>
+        <Setter Property="BorderBrush" Value="White"/>
+        <Setter Property="Foreground" Value="White"/>
+    </Style>
+
+</ResourceDictionary>

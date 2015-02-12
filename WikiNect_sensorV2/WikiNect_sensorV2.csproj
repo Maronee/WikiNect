@@ -1,0 +1,402 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{009515B3-9884-4DF6-9E3E-E59B9D33B049}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>WikiNectLayout</RootNamespace>
+    <AssemblyName>WikiNect</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>
+    </StartupObject>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AForge, Version=2.2.4.0, Culture=neutral, PublicKeyToken=c1db6ff4eaa06aeb, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Debug\AForge.dll</HintPath>
+    </Reference>
+    <Reference Include="AForge.Imaging, Version=2.2.4.0, Culture=neutral, PublicKeyToken=ba8ddea9676ca48b, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Debug\AForge.Imaging.dll</HintPath>
+    </Reference>
+    <Reference Include="AForge.Math, Version=2.2.4.0, Culture=neutral, PublicKeyToken=abba2e25397ee8c9, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Debug\AForge.Math.dll</HintPath>
+    </Reference>
+    <Reference Include="GraphSharp, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Libaries\GraphSharp\GraphSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="GraphSharp.Controls, Version=1.0.3438.42202, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Libaries\GraphSharp\GraphSharp.Controls.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Kinect, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.Kinect.Wpf.Controls, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.QualityTools.Testing.Fakes, Version=11.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Libaries\Database\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="OpenCvSharp, Version=2.0.3872.36177, Culture=neutral, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Debug\OpenCvSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="PresentationFramework.Aero" />
+    <Reference Include="QuickGraph, Version=3.2.40122.0, Culture=neutral, PublicKeyToken=f3fb40175eec2af3, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Libaries\GraphSharp\QuickGraph.dll</HintPath>
+    </Reference>
+    <Reference Include="RabbitMQ.Client, Version=3.0.0.0, Culture=neutral, PublicKeyToken=89e7d7c5feba84ce, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Libaries\Database\RabbitMQ.Client.dll</HintPath>
+    </Reference>
+    <Reference Include="RabbitMQ.ServiceModel, Version=3.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Libaries\Database\RabbitMQ.ServiceModel.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="WPFExtensions, Version=1.0.3437.34043, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Libaries\GraphSharp\WPFExtensions.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="WikiNectApp.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Compile Include="Implementations\Database\CoockeWebClient.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Implementations\KinectElements\from_1_8\ContentStateToVisibilityConverter.cs" />
+    <Compile Include="Implementations\KinectElements\from_1_8\KinectTileButton.cs" />
+    <Compile Include="Implementations\KinectElements\KeyboardButton.cs" />
+    <Compile Include="Implementations\KinectElements\KeyboardHandler.cs" />
+    <Compile Include="Implementations\KinectElements\from_1_8\KinectCircleButton.cs" />
+    <Compile Include="Implementations\KinectElements\SegmentationButton_old.cs" />
+    <Compile Include="Implementations\Models\Model_Legende.cs" />
+    <Compile Include="Implementations\Models\Model_Header.cs" />
+    <Compile Include="Implementations\Models\Model_Image.cs" />
+    <Compile Include="Implementations\Models\Model_Kategorie.cs" />
+    <Compile Include="Implementations\DataStore\Impl_Annotation.cs" />
+    <Compile Include="Implementations\DataStore\Impl_Attribut.cs" />
+    <Compile Include="Implementations\DataStore\Impl_Category.cs" />
+    <Compile Include="Implementations\DataStore\Impl_ContentElement.cs" />
+    <Compile Include="Implementations\Database\Impl_DataBaseConnection.cs" />
+    <Compile Include="Implementations\DataStore\Impl_DataElement.cs" />
+    <Compile Include="Implementations\DataStore\Impl_Image.cs" />
+    <Compile Include="Implementations\Database\Impl_JSONConnection.cs" />
+    <Compile Include="Implementations\DataStore\Impl_Link.cs" />
+    <Compile Include="Implementations\DataStore\Impl_Rating.cs" />
+    <Compile Include="Implementations\DataStore\Impl_User.cs" />
+    <Compile Include="Implementations\KinectElements\CategoryButton.cs" />
+    <Compile Include="Implementations\KinectElements\ClosingLabel.cs" />
+    <Compile Include="Implementations\KinectElements\KinImage.cs" />
+    <Compile Include="Implementations\KinectElements\SegmentationButton.cs" />
+    <Compile Include="Implementations\Workspace\Graph\GraphViewModel.cs" />
+    <Compile Include="Implementations\Workspace\Graph\WikiEdge.cs" />
+    <Compile Include="Implementations\Workspace\Graph\WikiGraph.cs" />
+    <Compile Include="Implementations\Workspace\Graph\WikiVertex.cs" />
+    <Compile Include="Implementations\Workspace\Segmentation\Filter.cs" />
+    <Compile Include="Implementations\Workspace\Segmentation\Helper.cs" />
+    <Compile Include="Implementations\Workspace\Segmentation\PolygonCrop.cs" />
+    <Compile Include="Implementations\Workspace\Segmentation\RectCrop.cs" />
+    <Compile Include="Implementations\Workspace\Segmentation\VisualToImage.cs" />
+    <Compile Include="Implementations\Wrapper\MediaWikiToJSON.cs" />
+    <Compile Include="Implementations\Xamls\CroppedImageDisplay.xaml.cs">
+      <DependentUpon>CroppedImageDisplay.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Implementations\Xamls\CroppedImageDisplay_old.xaml.cs">
+      <DependentUpon>CroppedImageDisplay_old.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Implementations\Xamls\GraphDisplay.xaml.cs">
+      <DependentUpon>GraphDisplay.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Implementations\Xamls\ImageDisplay.xaml.cs">
+      <DependentUpon>ImageDisplay.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Implementations\Xamls\SegmentationDisplay.xaml.cs">
+      <DependentUpon>SegmentationDisplay.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Implementations\Xamls\SegmentationMainWindow.xaml.cs">
+      <DependentUpon>SegmentationMainWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Implementations\Xamls\WikiNectClassicKeyboard.xaml.cs" />
+    <Compile Include="Interfaces\Kinect\WikinectButton.cs" />
+    <Compile Include="Interfaces\Kinect\WikiNectElement.cs" />
+    <Compile Include="Interfaces\Kinect\WikiNectKeyboard.cs" />
+    <Compile Include="Interfaces\Kinect\WikinectKeyboardButton.cs" />
+    <Compile Include="Interfaces\Kinect\WikiNectKeyboardCaller.cs" />
+    <Compile Include="Interfaces\Kinect\WikiNectKinect.cs" />
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+    <Compile Include="WikiNect_new.xaml.cs">
+      <DependentUpon>WikiNect_new.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="WikiNect.xaml.cs">
+      <DependentUpon>WikiNect.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="WikiNectApp.xaml.cs">
+      <DependentUpon>WikiNectApp.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Interfaces\DataConnection\Connection.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Interfaces\DataStore\Annotation.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Interfaces\DataStore\AnnotationType.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Interfaces\DataStore\AnnotationWorkspace.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Interfaces\DataStore\Attribut.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Interfaces\DataStore\Category.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Interfaces\DataStore\ContentElement.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Interfaces\DataStore\DataElement.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Interfaces\DataStore\ElementContainer.cs" />
+    <Compile Include="Interfaces\DataStore\Image.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Interfaces\DataStore\Link.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Interfaces\DataStore\Rating.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Interfaces\DataStore\RatingCategory.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Interfaces\DataStore\RatingQuestions.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Interfaces\DataStore\RatingRange.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Interfaces\DataStore\User.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Interfaces\WikiNectConst.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Interfaces\Workspace\RatingWorkspace.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Interfaces\Workspace\SegmentingWorkspace.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Interfaces\Workspace\Workspace.cs">
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <AppDesigner Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="keyboards\myKeyboard.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Libaries\GraphSharp\GraphSharp.Contracts.dll" />
+    <Content Include="Libaries\GraphSharp\GraphSharp.Controls.dll" />
+    <Content Include="Libaries\GraphSharp\GraphSharp.dll" />
+    <Content Include="Libaries\GraphSharp\Microsoft.Contracts.dll" />
+    <Content Include="Libaries\GraphSharp\QuickGraph.dll" />
+    <Content Include="Libaries\GraphSharp\WPFExtensions.dll" />
+    <Content Include="Libaries\Segmentation\AForge.dll" />
+    <Content Include="Libaries\Segmentation\AForge.Imaging.dll" />
+    <Content Include="Libaries\Segmentation\AForge.Math.dll" />
+    <Content Include="Libaries\Segmentation\OpenCvSharp.dll" />
+    <Resource Include="Implementations\Xamls\WikiNect.png" />
+    <Resource Include="icons\Koala.jpg" />
+    <Resource Include="icons\Penguins.jpg" />
+    <SplashScreen Include="icons\WikiNect.png" />
+    <Resource Include="icons\wikinect_icon.png" />
+    <Resource Include="icons\Segmentation\crop-black128.png" />
+    <Resource Include="icons\Segmentation\cut-black128.png" />
+    <Resource Include="icons\Segmentation\help-blue128.png" />
+    <Resource Include="icons\Segmentation\polygon-black128.png" />
+    <Resource Include="icons\Segmentation\refresh-black64.png" />
+    <Resource Include="icons\Segmentation\save-black128.png" />
+    <Resource Include="icons\Segmentation\undo-black64.png" />
+    <Resource Include="icons\Segmentation\crop-refresh.png" />
+    <Content Include="Libaries\Database\Newtonsoft.Json.dll" />
+    <Content Include="Libaries\Database\RabbitMQ.Client.dll" />
+    <Content Include="Libaries\Database\RabbitMQ.ServiceModel.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Implementations\Workspace\Segmentation\CroppedPictures\" />
+    <Folder Include="Libaries\Kinect\" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.0,Profile=Client">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4 Client Profile %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="Implementations\Styles\GraphDisplayStyle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Implementations\Styles\ImageDisplayStyle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Implementations\Styles\sdk1_8_styles.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Implementations\Styles\MainStyle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Implementations\Styles\SegmentationStyle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Implementations\Xamls\CroppedImageDisplay.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Implementations\Xamls\CroppedImageDisplay_old.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Implementations\Xamls\GraphDisplay.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Implementations\Xamls\ImageDisplay.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Implementations\Xamls\SegmentationDisplay.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Implementations\Xamls\SegmentationMainWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Implementations\Xamls\WikiNectClassicKeyboard.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="WikiNect_new.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="WikiNect.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

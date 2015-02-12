@@ -1,0 +1,157 @@
+﻿<Window x:Class="WikiNectLayout.WikiNect"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:k="http://schemas.microsoft.com/kinect/2014"
+        xmlns:kElements="clr-namespace:Kinect"
+        xmlns:controls="clr-namespace:WikiNectLayout.Implementions.Xamls"
+        xmlns:Themes="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero" 
+        FontFamily="Segoe UI"
+        Title="WikiNect" Height="600" Width="1000" WindowState="Maximized" Closing="windowClosing" Loaded="windowLoaded"  Icon="/WikiNect;component/icons/wikinect_icon.png">
+
+    
+    <Window.Resources>
+        <Storyboard x:Key="expandStoryboard">
+            <DoubleAnimation Storyboard.TargetProperty="RenderTransform.ScaleX" To="1.05" Duration="0:0:0.25" />
+            <DoubleAnimation Storyboard.TargetProperty="RenderTransform.ScaleY" To="1.05" Duration="0:0:0.25" />
+        </Storyboard>
+        <Storyboard x:Key="shrinkStoryboard">
+            <DoubleAnimation Storyboard.TargetProperty="RenderTransform.ScaleX" To="1" Duration="0:0:0.25" />
+            <DoubleAnimation Storyboard.TargetProperty="RenderTransform.ScaleY" To="1" Duration="0:0:0.25" />
+        </Storyboard>
+        <Style x:Name="scrollElemente" TargetType="{x:Type ScrollViewer}">
+            <Setter Property="Margin" Value="10,0,10,0" />
+            <Setter Property="Background" Value="WhiteSmoke"/>
+        </Style>
+        <Style x:Key="HoverImageStyle" TargetType="{x:Type kElements:KinImage}">
+            <Setter Property="Margin" Value="0,0,15,15" />
+            <Setter Property="RenderTransform">
+                <Setter.Value>
+                    <ScaleTransform ScaleX="1" ScaleY="1" CenterY="0" CenterX="{DynamicResource {x:Static SystemParameters.IconHeightKey}}"/>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsHandPointerOver" Value="True">
+                    <Trigger.EnterActions>
+                        <BeginStoryboard Storyboard="{StaticResource expandStoryboard}" />
+                    </Trigger.EnterActions>
+                    <Trigger.ExitActions>
+                        <BeginStoryboard Storyboard="{StaticResource shrinkStoryboard}" />
+                    </Trigger.ExitActions>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <Style x:Key="HoverLabelStyle" TargetType="{x:Type kElements:CategoryButton}">
+            <Setter Property="Background" Value="LightGray"/>
+            <Setter Property="BorderBrush" Value="DarkGray"/>
+            <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="Foreground" Value="#FF171717"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="FontSize" Value="40"/>
+            <Setter Property="Margin" Value="0,0,10,0" />
+            <Setter Property="Height" Value="150"/>
+            <Style.Triggers>
+                <Trigger Property="IsEnabled" Value="False">
+                    <Setter Property="Foreground" Value="LightGray"/>
+                    <Setter Property="BorderBrush" Value="LightGray"/>
+                    <Setter Property="Background" Value="Transparent"/>
+                </Trigger>
+                <Trigger Property="IsHandPointerOver" Value="True">
+                    <Setter Property="Background" Value="LightBlue"/>
+                    <Setter Property="Foreground" Value="#FF171717"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <Style x:Key="ListBoxStyle" TargetType="{x:Type ListBox}">
+            <Setter Property="Background" Value="#FF00BCF2"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontSize" Value="30"/>
+        </Style>
+    </Window.Resources>
+    <!--<k:KinectRegion x:Name="kinectRegion">-->
+        <Grid x:Name="test">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="125"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0">
+                <!--<k:KinectSensorChooserUI x:Name="sensorChooserUi" HorizontalAlignment="Center" VerticalAlignment="Top"/>-->
+                <!--<k:KinectUserViewer x:Name="userViewer" HorizontalAlignment="Center" VerticalAlignment="Top" Height="150" k:KinectRegion.KinectRegion="{Binding ElementName=kinectRegion}"/>-->
+                <Image Source="icons/WikiNect.png" HorizontalAlignment="Left" Margin="10,10,0,10" Width="129" />
+                <kElements:ClosingLabel  HorizontalAlignment="Right" VerticalAlignment="Top" FontSize="70" FontWeight="Bold" Margin="0,10,10,0" Content="X"/>
+            </Grid>
+            
+            <Grid x:Name="partypooper" Grid.Row="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="0.2*"/>
+                    <RowDefinition Height="220"/>
+                    <RowDefinition Height="0.2*"/>
+                    <RowDefinition Height="2*"/>
+                    <RowDefinition Height="0.2*"/>
+                    <RowDefinition Height="1*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="0.25*" />
+                </Grid.ColumnDefinitions>
+                <Viewbox Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Stretch">
+                    <Label Content="Category"  />
+                </Viewbox>
+                <ScrollViewer  Grid.Row="1" HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Disabled" Grid.ColumnSpan="2">
+                    <WrapPanel x:Name="categoryPanel" VerticalAlignment="Center">
+                        <kElements:CategoryButton Content="Peter" Style="{StaticResource HoverLabelStyle}" Margin="0,0,10,0" Height="150" Template="{DynamicResource CatetgoryButtonBase}"/>
+                        <kElements:CategoryButton Content="Peter" Style="{StaticResource HoverLabelStyle}"/>
+                        <kElements:CategoryButton Content="Peter" Style="{StaticResource HoverLabelStyle}"/>
+                        <kElements:CategoryButton Content="Peter" Style="{StaticResource HoverLabelStyle}"/>
+                        <kElements:CategoryButton Content="Peter" Style="{StaticResource HoverLabelStyle}"/>
+                        <kElements:CategoryButton Content="Peter" Style="{StaticResource HoverLabelStyle}"/>
+                        <kElements:CategoryButton Content="Peter" Style="{StaticResource HoverLabelStyle}"/>
+                        <kElements:CategoryButton Content="Peter" Style="{StaticResource HoverLabelStyle}"/>
+                    </WrapPanel>
+                </ScrollViewer>
+
+                <Viewbox Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Stretch">
+                    <Label Content="Picture Browser"  />
+                </Viewbox>
+                <ScrollViewer  Grid.Row="3" HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Disabled" Grid.Column="0" Padding="100,0">
+                    <StackPanel x:Name="categoriegroup" Orientation="Horizontal">
+                        <kElements:KinImage Source="icons/WikiNect.png" Style="{StaticResource HoverImageStyle}" />
+                        <kElements:KinImage Source="icons/WikiNect.png" Style="{StaticResource HoverImageStyle}" />
+                    </StackPanel>
+                </ScrollViewer>
+
+                <Viewbox Grid.Row="2" Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Stretch">
+                    <Label Content="InfoBox"  />
+                </Viewbox>
+                <ScrollViewer  Grid.Column="1" Grid.Row="3" VerticalScrollBarVisibility="Disabled" HorizontalScrollBarVisibility="Auto" Background="#FF00BCF2" Margin="0,0,10,0">
+                    <ListBox x:Name="imageInfo" HorizontalAlignment="Stretch"  VerticalAlignment="Stretch" Style="{StaticResource ListBoxStyle}" Margin="0">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Margin="0,2">
+                                    <TextBlock Text="Title:" />
+                                    <TextBlock Text="{Binding title}" Margin="0,0,0,3"/>
+                                    <TextBlock Text="Artist:" />
+                                    <TextBlock Text="{Binding artist}" Margin="0,0,0,3"/>
+                                    <TextBlock Text="Museum:" />
+                                    <TextBlock Text="{Binding museum}" />
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </ScrollViewer>
+                <Viewbox Grid.Row="4" HorizontalAlignment="Left" VerticalAlignment="Stretch">
+                    <Label Content="Workspace"  />
+                </Viewbox>
+
+                <ScrollViewer  Grid.Row="5" HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Disabled" Grid.ColumnSpan="2">
+                    <StackPanel x:Name="workspacegroup" Orientation="Horizontal">
+                        <kElements:KinImage Source="icons/WikiNect.png" Style="{StaticResource HoverImageStyle}" />
+                    </StackPanel>
+                </ScrollViewer>
+            </Grid>
+            
+        </Grid>
+        </Grid>
+    <!--</k:KinectRegion>-->
+</Window>

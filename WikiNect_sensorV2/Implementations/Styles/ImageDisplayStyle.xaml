@@ -1,0 +1,98 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:k="http://schemas.microsoft.com/kinect/2013"
+                    xmlns:kElements="clr-namespace:Kinect">
+
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="sdk1_8_styles.xaml"/>
+    </ResourceDictionary.MergedDictionaries>
+
+    <!-- ImageDisplay STYLES -->
+    <!-- Alle hier angegebenen Styles werden in der ImageDisplay verwendet -->
+    
+    <!-- Style für InfoBox mit den Informationen über das Bild-->
+    <Style x:Key="InfoBoxStyle" TargetType="StackPanel">
+        <Setter Property="Background" Value="Black"/>
+        <Setter Property="Opacity" Value="0.7"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="HorizontalAlignment" Value="Right"/>
+        <Setter Property="Margin" Value="0,0,130,150"/>
+        <Setter Property="MaxWidth" Value="450"/>
+        <!--Setter Property="Height" Value="300"/-->
+    </Style>
+    
+    <!-- Style für Information Künstler, Erscheinungsjahr und Museum in InfoBox-->
+    <Style x:Key="FontStyle" TargetType="TextBlock">
+        <Setter Property="FontFamily" Value="Segoe UI"/>
+        <Setter Property="FontSize" Value="20"/>
+        <Setter Property="VerticalAlignment" Value="Stretch"/>
+        <Setter Property="HorizontalAlignment" Value="Stretch"/>
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="TextWrapping" Value="Wrap"/>
+    </Style>
+    
+    <!-- Style für Überschriften von Künstler, Erscheingunsjahr und Museum in InfoBox-->
+    <Style x:Key="FontStyleHeading" TargetType="TextBlock">
+        <Setter Property="FontFamily" Value="Segoe UI"/>
+        <Setter Property="FontSize" Value="20"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="VerticalAlignment" Value="Stretch"/>
+        <Setter Property="HorizontalAlignment" Value="Stretch"/>
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="TextWrapping" Value="Wrap"/>
+    </Style>
+
+    <!-- Back Button -->
+    <Style x:Key="backbtn" BasedOn="{StaticResource circle}" TargetType="kElements:KinectCircleButton">
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="VerticalAlignment" Value="Bottom"/>
+        <Setter Property="Height" Value="61"/>
+        <Setter Property="Margin" Value="0,0,0,8"/>
+        <Setter Property="HorizontalAlignment" Value="Left"/>
+    </Style>
+    <Style x:Key="path_backbtn" TargetType="Path">
+        <Setter Property="Width" Value="48.8469"/>
+        <Setter Property="Height" Value="48.5698"/>
+        <Setter Property="Stretch" Value="Uniform"/>
+        <Setter Property="Fill" Value="White"/>
+        <Setter Property="Data" Value="F1 M 0,10.7852L 14.0247,21.5698L 14.0247,14.7494L 26.8469,14.7494L 26.8469,6.82025L 14.0247,6.82025L 14.0247,0L 0,10.7852 Z "/>
+    </Style>
+    
+    <!-- Style für KinectCircleButtons im Stackpanel -->
+    <Style x:Key="segmentationbtn" BasedOn="{StaticResource circle}" TargetType="kElements:KinectCircleButton">
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="VerticalAlignment" Value="Top"/>
+        <Setter Property="Height" Value="83"/>
+        <Setter Property="HorizontalAlignment" Value="Center" />
+    </Style>
+    
+    <!-- Style für LöschenButton im Workspace -->
+    <Style x:Key="segmentationbtn1" TargetType="kElements:KinectCircleButton">
+        <Setter Property="Height" Value="100"/>
+        <Setter Property="Foreground" Value="White"/>
+    </Style>
+
+    <!-- Style für LöschenButton im Stackpanel NOTWENDIG???? -->
+    <!--Style x:Key="segmentationbtn_workspace" TargetType="k:KinectCircleButton">
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="VerticalAlignment" Value="Top"/>
+        <Setter Property="Height" Value="83"/>
+        <Setter Property="HorizontalAlignment" Value="Center" />
+        <Setter Property="Visibility" Value="Collapsed"/>
+    </Style-->
+    
+    <!-- Style für Auswahlpanel -->
+    <Style x:Key="buttonSelectionPanel" TargetType="StackPanel">
+        <Setter Property="HorizontalAlignment" Value="Left"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="Opacity" Value="0.7"/>
+        <Setter Property="Background" Value="Black"/>
+        <Setter Property="Margin" Value="130,0,0,150"/>
+    </Style>
+
+    <!-- Workspace Container -->
+    <Style x:Key="GridViewContainer" TargetType="Grid">
+        <Setter Property="Height" Value="150"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+    </Style>
+</ResourceDictionary>

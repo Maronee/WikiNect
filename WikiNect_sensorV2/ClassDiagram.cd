@@ -1,0 +1,358 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="DataConnection.DataBaseConnection" BaseTypeListCollapsed="true">
+    <Position X="17.5" Y="10.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gQAAACADAAgQAABIAAQAAQAACgAAAEEEgYgAIhAAIQA=</HashCode>
+      <FileName>Implementions\Database\Impl_DataBaseConnection.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="DataConnection.JSONConnection" BaseTypeListCollapsed="true">
+    <Position X="19.25" Y="10.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gQABACADAAgQAAAIAAQAAQAECgAAAEEEgYgAIBAAIAA=</HashCode>
+      <FileName>Implementions\Database\Impl_JSONConnection.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="DataStore.CategoryImpl">
+    <Position X="9.25" Y="15.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>IBAAAAEBAgAQAAAEgAQwISAAAAAACAIAIQAgAAAQWAA=</HashCode>
+      <FileName>Implementions\DataStore\Impl_Category.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="DataStore.ImplContentElement">
+    <Position X="12" Y="15.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAECAAAAAAQAAAAAAEAAAAAAQAAAAA=</HashCode>
+      <FileName>Implementions\DataStore\Impl_ContentElement.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="DataStore.ImplDataElement">
+    <Position X="10.75" Y="10.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>EAAACAIAAAAwAEAAAARBEAAAAAAMAEhAgAAEAAAEAAA=</HashCode>
+      <FileName>Implementions\DataStore\Impl_DataElement.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="DataStore.ImplImage">
+    <Position X="12" Y="18.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAARAAAAAAEAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Implementions\DataStore\Impl_Image.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Wikinect.Wrapper.Allcategory" Collapsed="true">
+    <Position X="20.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAgEAgAAAAAAAAAAAAAAAAAAAACAAEAIA=</HashCode>
+      <FileName>Implementions\Wrapper\MediaWikiToJSON.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Wikinect.Wrapper.CategoryMember" Collapsed="true">
+    <Position X="22.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gIACAAAAAAAAAEAAAAACAAAAAACAAAAAAQAAAAAAAAA=</HashCode>
+      <FileName>Implementions\Wrapper\MediaWikiToJSON.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Wikinect.Wrapper.ImageMember" Collapsed="true">
+    <Position X="20.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAEAAAAACAAQAAACAAAAACAAAAAAAAAA=</HashCode>
+      <FileName>Implementions\Wrapper\MediaWikiToJSON.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Wikinect.Wrapper.LinkMember" Collapsed="true">
+    <Position X="24" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAEAAAAAAAAAAAACAAAAAEAAAAAAAAAA=</HashCode>
+      <FileName>Implementions\Wrapper\MediaWikiToJSON.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Wikinect.Wrapper.LinkMemberContinue" Collapsed="true">
+    <Position X="25.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAA=</HashCode>
+      <FileName>Implementions\Wrapper\MediaWikiToJSON.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Wikinect.Wrapper.PagesDeepMember" Collapsed="true">
+    <Position X="25.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAAAIAAAAEAAAAAAAACAAACAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Implementions\Wrapper\MediaWikiToJSON.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Wikinect.Wrapper.Query" Collapsed="true">
+    <Position X="24" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAgAAAAAAAAAAAAEBAACAAAAAAAAAA=</HashCode>
+      <FileName>Implementions\Wrapper\MediaWikiToJSON.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Wikinect.Wrapper.Login" Collapsed="true">
+    <Position X="22.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAQgAAAAAAAAAAAgAAABAAA=</HashCode>
+      <FileName>Implementions\Wrapper\MediaWikiToJSON.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Wikinect.Wrapper.QueryContinue" Collapsed="true">
+    <Position X="25.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAA=</HashCode>
+      <FileName>Implementions\Wrapper\MediaWikiToJSON.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Wikinect.Wrapper.TextMember" Collapsed="true">
+    <Position X="24" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Implementions\Wrapper\MediaWikiToJSON.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Wikinect.Wrapper.ParseImageMember" Collapsed="true">
+    <Position X="20.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Implementions\Wrapper\MediaWikiToJSON.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Wikinect.Wrapper.ParseLinkMember" Collapsed="true">
+    <Position X="22.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAEAAAAAAAAAAAACAAAAAEAAAAAEAAAA=</HashCode>
+      <FileName>Implementions\Wrapper\MediaWikiToJSON.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Wikinect.Wrapper.Parse" Collapsed="true">
+    <Position X="27.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAEAAAAAAAABAAAAAABCACAAACAAAAAA=</HashCode>
+      <FileName>Implementions\Wrapper\MediaWikiToJSON.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Wikinect.Wrapper.MediaWiki" Collapsed="true">
+    <Position X="24" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAgAAAAAAAAQAAAAAAAAAAAAAAAAAgAAAAAAAAAAAA=</HashCode>
+      <FileName>Implementions\Wrapper\MediaWikiToJSON.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Wikinect.Wrapper.Wikitext" Collapsed="true">
+    <Position X="27.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAA=</HashCode>
+      <FileName>Implementions\Wrapper\MediaWikiToJSON.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Wikinect.Wrapper.RatingsSection" Collapsed="true">
+    <Position X="27.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Implementions\Wrapper\MediaWikiToJSON.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Wikinect.Wrapper.ImageMap" Collapsed="true">
+    <Position X="25.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAIAAAAAAAAAAAAAAAAEAAAAAAAAIAAAAAA=</HashCode>
+      <FileName>Implementions\Wrapper\MediaWikiToJSON.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Wikinect.Wrapper.ImageMapPiece" Collapsed="true">
+    <Position X="27.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAGAAAAAAAAQAAAAAAAAABAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Implementions\Wrapper\MediaWikiToJSON.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Wikinect.Wrapper.LinksSection" Collapsed="true">
+    <Position X="27.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAA=</HashCode>
+      <FileName>Implementions\Wrapper\MediaWikiToJSON.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Wikinect.Wrapper.LinksSectionPiece" Collapsed="true">
+    <Position X="20.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAICAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Implementions\Wrapper\MediaWikiToJSON.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Wikinect.WikiNect">
+    <Position X="17.75" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAEAAABAAAQAAAAAAIAAAAABAAAAAA=</HashCode>
+      <FileName>WikiNect.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Wikinect.Properties.Resources" Collapsed="true">
+    <Position X="20.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAABEAAAAQAAAAAAAAAAAAAAAIA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Wikinect.Properties.Settings" Collapsed="true">
+    <Position X="22.25" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAIAAAAAABAAAAAAAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Interface Name="DataConnection.Connection">
+    <Position X="15.75" Y="10.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gQAAACADAAgQAAAIAAQAAQAACgAAAEEEgYgAIBAAIAA=</HashCode>
+      <FileName>Interfaces\DataConnection\Connection.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="DataStore.Annotation">
+    <Position X="2.5" Y="2.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAJAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAEAAA=</HashCode>
+      <FileName>Interfaces\DataStore\Annotation.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="DataStore.Attribut">
+    <Position X="3.75" Y="5.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAg=</HashCode>
+      <FileName>Interfaces\DataStore\Attribut.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="DataStore.Category">
+    <Position X="12" Y="6" Width="2" />
+    <TypeIdentifier>
+      <HashCode>IAAAAAEBAAAQAAAAAAQgAQAAAAAAAAAAAQAAAAAQEAA=</HashCode>
+      <FileName>Interfaces\DataStore\Category.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="DataStore.ContentElement">
+    <Position X="14.75" Y="6" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAECAAAAAAAAAAAAAEAAAAAAQAAAAA=</HashCode>
+      <FileName>Interfaces\DataStore\ContentElement.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="DataStore.DataElement">
+    <Position X="13.5" Y="2.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAACAAAAAAwAAAAAAQAEAAAAAAEAEBAgAAEAAAEAAA=</HashCode>
+      <FileName>Interfaces\DataStore\DataElement.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="DataStore.Image">
+    <Position X="14.75" Y="8.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAARAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Interfaces\DataStore\Image.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="DataStore.Link">
+    <Position X="1" Y="5.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAg=</HashCode>
+      <FileName>Interfaces\DataStore\Link.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="DataStore.Rating">
+    <Position X="6.5" Y="2.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAACAAAACAAgAAAAAAAAAAAAAAAAAAAAAgAABAAAAA=</HashCode>
+      <FileName>Interfaces\DataStore\Rating.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="DataStore.RatingCategory">
+    <Position X="9.25" Y="2.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAQAAAQAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Interfaces\DataStore\RatingCategory.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="DataStore.RatingQuestions">
+    <Position X="9.25" Y="4.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAA=</HashCode>
+      <FileName>Interfaces\DataStore\RatingQuestions.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="DataStore.RatingRange">
+    <Position X="9.25" Y="6.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAEAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Interfaces\DataStore\RatingRange.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="DataStore.User">
+    <Position X="17.5" Y="3.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>IAAAAAAAACAAAAAAAgAAAAAAQIAAAAABAAAAAAAAAAA=</HashCode>
+      <FileName>Interfaces\DataStore\User.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="DataStore.WikiNectElement">
+    <Position X="9.25" Y="0.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>EAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAA=</HashCode>
+      <FileName>Interfaces\DataStore\WikiNectElement.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Kinect.KinectButton" Collapsed="true">
+    <Position X="22.25" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Interfaces\Kinect\WikinectButton.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Wikinect.AnnotationsWorkspace">
+    <Position X="0.5" Y="10" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Interfaces\Workspace\AnnotationWorkspace.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Wikinect.RatingWorkspace">
+    <Position X="3.25" Y="10" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Interfaces\Workspace\RatingWorkspace.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Wikinect.SegmentingWorkspace">
+    <Position X="6" Y="10" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Interfaces\Workspace\SegmentingWorkspace.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Wikinect.Workspace">
+    <Position X="3.25" Y="7.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAEKAAAAAAAAAAAAAAAAAIEAAAAAAA=</HashCode>
+      <FileName>Interfaces\Workspace\Workspace.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Wikinect.WikiNectKinect">
+    <Position X="12.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Interfaces\Kinect\WikiNectKinect.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Enum Name="DataStore.AnnotationType" Collapsed="true">
+    <Position X="20.5" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Interfaces\DataStore\AnnotationType.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Tahoma" Size="8.25" />
+</ClassDiagram>

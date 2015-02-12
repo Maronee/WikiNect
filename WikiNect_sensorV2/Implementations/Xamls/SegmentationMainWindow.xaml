@@ -1,0 +1,182 @@
+﻿<UserControl x:Class="WikiNectLayout.Implementions.Xamls.SegmentationMainWindow"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:k="http://schemas.microsoft.com/kinect/2014"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:kElements="clr-namespace:Kinect"
+             xmlns:local="clr-namespace:WikiNectLayout"
+             mc:Ignorable="d" 
+             d:DesignHeight="800" d:DesignWidth="1280"
+             Background="Transparent"
+             FontFamily="Segoe UI"
+             FontSize="30">
+    
+    <UserControl.Resources> 
+            <Storyboard x:Key="expandStoryboard">
+                <DoubleAnimation Storyboard.TargetProperty="RenderTransform.ScaleX" To="1.05" Duration="0:0:0.25" />
+                <DoubleAnimation Storyboard.TargetProperty="RenderTransform.ScaleY" To="1.05" Duration="0:0:0.25" />
+            </Storyboard>
+        
+            <Storyboard x:Key="shrinkStoryboard">
+                <DoubleAnimation Storyboard.TargetProperty="RenderTransform.ScaleX" To="1" Duration="0:0:0.25" />
+                <DoubleAnimation Storyboard.TargetProperty="RenderTransform.ScaleY" To="1" Duration="0:0:0.25" />
+            </Storyboard>
+        
+            <Style x:Name="scrollElemente" TargetType="{x:Type ScrollViewer}">
+                <Setter Property="Margin" Value="10,0,10,0" />
+                <Setter Property="Background" Value="Black"/>
+            </Style>
+
+        <Style x:Key="HoverImageStyle" TargetType="{x:Type kElements:KinImage}">
+            <Setter Property="Margin" Value="0,0,15,15" />
+            <Setter Property="RenderTransform">
+                <Setter.Value>
+                    <ScaleTransform ScaleX="1" ScaleY="1" CenterY="0" CenterX="{DynamicResource {x:Static SystemParameters.IconHeightKey}}"/>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsHandPointerOver" Value="True">
+                    <Trigger.EnterActions>
+                        <BeginStoryboard Storyboard="{StaticResource expandStoryboard}" />
+                    </Trigger.EnterActions>
+                    <Trigger.ExitActions>
+                        <BeginStoryboard Storyboard="{StaticResource shrinkStoryboard}" />
+                    </Trigger.ExitActions>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        
+        <PathGeometry x:Key="LeftFacingArrowGeometry">
+            M182.5703,143.3564L182.5703,155.3564L142.5703,155.3564C148.2363,161.3564,153.9043,167.3564,159.5703,173.3564L143.5703,173.3564L120.4803,149.3564L144.5703,
+            125.3564L160.7373,125.3564L142.5703,143.3564z
+        </PathGeometry>
+        <Path x:Key="ArrowLeft" Height="48" Canvas.Left="0" Stretch="Uniform" Canvas.Top="0" Width="48" x:Shared="False"
+          Data="{StaticResource LeftFacingArrowGeometry}"
+          Fill="{Binding FallbackValue=Black, Path=ContentForeground,RelativeSource={RelativeSource AncestorType={x:Type kElements:KinectCircleButton}}}">
+            <Path.RenderTransformOrigin>0.5,0.5</Path.RenderTransformOrigin>
+            <Path.RenderTransform>
+                <RotateTransform Angle="0"/>
+            </Path.RenderTransform>
+        </Path>
+        
+        <Style x:Key="BackButtonStyle" TargetType="{x:Type kElements:KinectCircleButton}">
+            <Setter Property="Content" Value="{StaticResource ArrowLeft}"/>
+            <Setter Property="Label" Value="Back"/>
+            <Setter Property="LabelPosition" Value="Bottom"/>
+            <Setter Property="Foreground" Value="Black"/>
+        </Style>
+        
+        <SolidColorBrush x:Key="DarkGrayBrush" Color="DarkGray" />
+        
+        <Storyboard x:Key="OnLoadedStoryboard">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleX)" Storyboard.TargetName="grid">
+                <EasingDoubleKeyFrame KeyTime="0" Value="0.1"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="1"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:2.2" Value="1"/>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleY)" Storyboard.TargetName="grid">
+                <EasingDoubleKeyFrame KeyTime="0" Value="0.1"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="1"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:2.2" Value="1"/>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+    </UserControl.Resources>
+
+    <UserControl.Triggers>
+        <EventTrigger RoutedEvent="FrameworkElement.Loaded">
+            <BeginStoryboard x:Name="OnLoadedStoryboard_BeginStoryboard" Storyboard="{StaticResource OnLoadedStoryboard}"/>
+        </EventTrigger>
+    </UserControl.Triggers>
+    <!--<k:KinectRegion>-->
+    <Grid x:Name="segmentationLayout">
+        <Grid x:Name="grid" Background="{StaticResource DarkGrayBrush}" RenderTransformOrigin="0.5,0.5">
+            <Grid.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Grid.RenderTransform>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+
+            <Grid x:Name="imageDisplay" Grid.Column="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Grid x:Name="crpImgScroll" Grid.Column="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Viewbox Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Top">
+                        <Label Content="Cropped"/>
+                    </Viewbox>
+                    <ScrollViewer Grid.Column="0" Grid.Row="1" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Visible" Margin="5,0,0,5">
+                        <StackPanel x:Name="croppedImgPanel" Grid.Column="0" Orientation="Vertical" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Width="110" Height="Auto" Margin="0">
+                            <kElements:KinImage Source="WikiNect.png" Style="{StaticResource HoverImageStyle}" Height="40" Width="40"  />
+                        </StackPanel>
+                    </ScrollViewer>
+                    <kElements:KinectCircleButton x:Name="cropRefreshBtn" Grid.Row="2" Height="80" Width="80" VerticalAlignment="Stretch" HorizontalAlignment="Center" Click="CropPanelRefreshBtnOnClick">
+                        <Image x:Name="crop_refresh" Source="/WikiNect;component/icons/Segmentation/crop-refresh.png" Stretch="Fill"/>
+                    </kElements:KinectCircleButton>
+                </Grid>
+                <kElements:KinImage x:Name="orgImage" Grid.Column="1" Source="WikiNect.png" Width="1280" Height="800" Margin="0,0,5,0" HorizontalAlignment="Right" VerticalAlignment="Center"  MouseLeftButtonDown="OrgImage_MouseLeftButtonDown" Stretch="None"/>
+            </Grid>
+
+            <Border x:Name="border_cropping" Grid.Column="1" Width="Auto" Height="Auto" BorderBrush="Black" BorderThickness="5,0,5,0">
+                <kElements:KinImage x:Name="crpImage"  Grid.Column="1" Width="230" Height="230" Margin="2" Stretch="Uniform" StretchDirection="Both" VerticalAlignment="Top" />
+            </Border>
+
+
+            <Border x:Name="border_rpc" Grid.Column="1" Width="Auto" Height="Auto" BorderBrush="Black" BorderThickness="5,0,5,0">
+               <StackPanel Grid.Column="1" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Width="Auto" Height="Auto" Margin="0">
+                
+                <kElements:SegmentationButton x:Name="rectBtn" Width="155" Height="130" Grid.Column="1" Margin="20,40,20,40" BorderBrush="DarkGray" Background="DarkGray" Click="RectBtnOnClick">
+                    <Image x:Name="rect_black" Source="/WikiNect;component/icons/Segmentation/crop-black128.png" Stretch="Fill"/>
+                </kElements:SegmentationButton>
+
+                <kElements:SegmentationButton x:Name="polygonBtn" Width="155" Height="130" Grid.Column="1" Margin="20,40,20,40" Background="DarkGray" BorderBrush="DarkGray" Click="polygonBtnOnClick" >
+                    <Image x:Name="polygon_black" Source="/WikiNect;component/icons/Segmentation/polygon-black128.png"   Stretch="Fill"/>
+                </kElements:SegmentationButton>
+
+                    <kElements:SegmentationButton x:Name="cropBtn" Width="155" Height="130" Grid.Column="1" Margin="20,40,20,0" Background="DarkGray" BorderBrush="DarkGray"  Click="CropBtnOnClick">
+                    <Image x:Name="crop_black" Source="/WikiNect;component/icons/Segmentation/cut-black128.png" Stretch="Fill"/>
+                </kElements:SegmentationButton>
+            </StackPanel>
+            </Border>
+
+            <kElements:KinectCircleButton Style="{StaticResource BackButtonStyle}" Label="Zurück" Grid.Column="2" Foreground="White" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0,0,0,0" Click="OnLoadedStoryboardCompleted"></kElements:KinectCircleButton>
+            
+            <Border x:Name="border_besur" Grid.Column="2" Width="Auto" Height="Auto" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" BorderBrush="Black" BorderThickness="0">
+                <StackPanel Grid.Column="2" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="0" Width="Auto" Height="Auto">
+                    
+                    <TextBox x:Name="status_TextBox"  Width="210" Height="30" Visibility="Hidden" />
+
+                    <Label x:Name="statusLable" Width="210" Height="30" Grid.Column="2" VerticalAlignment="Top" Content="{Binding Text, ElementName=status_TextBox, UpdateSourceTrigger=PropertyChanged}" FontFamily="Arial Black" FontSize="16" FontWeight="Bold" FontStyle="Italic" HorizontalContentAlignment="Center"/>
+
+
+                    <kElements:SegmentationButton x:Name="saveBtn" Width="150" Height="130" Grid.Column="2" Margin="20,10,20,40" Background="DarkGray" BorderBrush="DarkGray"  Click="SaveBtnOnClick" >
+                        <Image x:Name="save_black" Source="/WikiNect;component/icons/Segmentation/save-black128.png" Stretch="Fill"/>
+                    </kElements:SegmentationButton>
+
+                    <kElements:SegmentationButton x:Name="undoBtn" Width="150" Height="130" Grid.Column="2" Margin="20,40,20,40" Background="DarkGray" BorderBrush="DarkGray" Click="UndoBtnOnClick" >
+                        <Image x:Name="undo_black" Source="/WikiNect;component/icons/Segmentation/undo-black64.png" Stretch="Fill"/>
+                    </kElements:SegmentationButton>
+
+                    <kElements:SegmentationButton x:Name="refreshBtn" Width="150" Height="130" Grid.Column="2" Margin="20,40,20,0" Background="DarkGray" BorderBrush="DarkGray" Click="refreshBtn_Click">
+                        <Image x:Name="refresh_black" Source="/WikiNect;component/icons/Segmentation/refresh-black64.png" Stretch="Fill" RenderTransformOrigin="0.051,0.769"/>
+                    </kElements:SegmentationButton>
+                </StackPanel>
+            </Border>
+        </Grid>
+    </Grid>
+    <!--</k:KinectRegion>-->
+</UserControl>

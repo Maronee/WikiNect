@@ -1,0 +1,124 @@
+﻿<Window x:Class="WikiNectLayout.WikiNect_new"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:k="http://schemas.microsoft.com/kinect/2014"
+        xmlns:kElements="clr-namespace:Kinect"
+        xmlns:controls="clr-namespace:WikiNectLayout.Implementions.Xamls"
+        xmlns:Themes="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero" 
+        FontFamily="Segoe UI"
+        Title="WikiNect" Background="{StaticResource WindowBackground}" 
+        MinHeight="600" 
+        MinWidth="1000" 
+        WindowState="Maximized" 
+        Closing="windowClosing" 
+        Loaded="windowLoaded" 
+        Icon="/WikiNect;component/icons/wikinect_icon.png">
+    <!--WindowStyle="None" -->
+    <Window.Resources>
+
+        <!--<ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary 
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>-->
+       
+        <!-- Templates -->
+        <ItemsPanelTemplate x:Key="ImageGalleryItemsPanelTemplate">
+            <UniformGrid Rows="3"></UniformGrid>
+        </ItemsPanelTemplate>
+        <DataTemplate x:Key="ListImageDataTemplate">
+            <kElements:CategoryButton Style="{StaticResource GridViewItemButton}" BorderThickness="{Binding selected}" Click="button_show" >
+                <Grid x:Name="GridViewItem">
+                    <Image Source="{Binding imagesource}" Style="{StaticResource GridViewItemImage}"/>
+                    <Grid Visibility="{Binding visible}">
+                        <Polygon Style="{StaticResource checked}"/>
+                        <Path Style="{StaticResource checkmark}"/>
+                    </Grid>
+                    <StackPanel Style="{StaticResource GridViewItemStackPanel}">
+                        <TextBlock Text="{Binding title}" Style="{StaticResource GridViewItemTextBlock}"/>
+                    </StackPanel>
+                </Grid>
+            </kElements:CategoryButton>
+        </DataTemplate>
+        <!-- Back Button --><!--
+        <Style x:Key="grid_backbtn" TargetType="Grid">
+            <Setter Property="Width" Value="120"/>
+        </Style>
+        <Style x:Key="backbtn" BasedOn="{StaticResource circle}" TargetType="kElements:KinectCircleButton">
+            <Setter Property="Visibility" Value="Hidden"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="VerticalAlignment" Value="Bottom"/>
+            <Setter Property="Height" Value="61"/>
+            <Setter Property="Margin" Value="0,0,0,8"/>
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+        </Style>
+        <Style x:Key="path_backbtn" TargetType="Path">
+            <Setter Property="Width" Value="48.8469"/>
+            <Setter Property="Height" Value="48.5698"/>
+            <Setter Property="Stretch" Value="Uniform"/>
+            <Setter Property="Fill" Value="White"/>
+            <Setter Property="Data" Value="F1 M 0,10.7852L 14.0247,21.5698L 14.0247,14.7494L 26.8469,14.7494L 26.8469,6.82025L 14.0247,6.82025L 14.0247,0L 0,10.7852 Z "/>
+        </Style>-->
+    </Window.Resources>
+
+    <k:KinectRegion x:Name="kinectRegion">
+        <Grid x:Name="page_grid">
+            <DockPanel x:Name="page" DataContext="{Binding}">
+                <!-- Header -->
+                <Grid x:Name="Header"  DockPanel.Dock="Top" Style="{StaticResource Header}">
+                    <StackPanel Orientation="Horizontal">
+                        <Grid Style="{StaticResource grid_backbtn}">
+                            <kElements:KinectCircleButton x:Name="btnBack" Click="backbtnClick" Style="{StaticResource backbtnHidden}">
+                                <Path Style="{StaticResource path_backbtn}" />
+                            </kElements:KinectCircleButton>
+                        </Grid>
+                        <Label Content="{Binding title}" Style="{StaticResource Logo_Label}"/>
+                        <Label Content="{Binding subTitle}" Style="{StaticResource Logo_subLabel}"/>
+                    </StackPanel>
+                    <Grid Style="{StaticResource KinectChooserViewer}">
+                        <!--<k:KinectSensorChooserUI x:Name="sensorChooserUi"/>-->
+                        <k:KinectUserViewer x:Name="userViewer" k:KinectRegion.KinectRegion="{Binding ElementName=kinectRegion}"/>
+                    </Grid>
+                </Grid>
+
+                <!-- Footer -->
+                <Grid DockPanel.Dock="Bottom" Style="{StaticResource Footer}">
+                    <Grid x:Name="Workspace_btn" Style="{StaticResource Footer_Workspace}">
+                        <kElements:SegmentationButton Click="workspaceopen" Style="{StaticResource Footer_Workspace_btn}">
+                            <StackPanel Style="{StaticResource Footer_Workspace_Stackpanel}">
+                                <Label Style="{StaticResource Footer_Workspace_label}">Workspace:</Label>
+                                <Label Content="{Binding workspaceTrigger}" Style="{StaticResource Footer_Workspace_label}"></Label>
+                            </StackPanel>
+                            <ToolTipService.ToolTip>
+                                <TextBlock MaxWidth="200" Height="Auto" TextWrapping="Wrap">Durch klicken dieses Knopfes gelangen Sie in den Workspace und sehen alle selektierten Bilder</TextBlock>
+                            </ToolTipService.ToolTip>
+                        </kElements:SegmentationButton>
+                    </Grid>
+                    <Grid x:Name="selectStartWorkspace"  Style="{StaticResource Footer_Select}">
+                        <kElements:SegmentationButton x:Name="btn_active" Click="changeViewSelect" Style="{StaticResource Footer_Workspace_btn}">
+                            <!--kElements:SegmentationButton.Background>
+                                <RadialGradientBrush  RadiusY="0.4">
+                                    <GradientStop x:Name="btn_active" Color="Transparent" Offset="0.5"/>
+                                    <GradientStop Color="Transparent" Offset="1"/>
+                                </RadialGradientBrush>
+                            </kElements:SegmentationButton.Background-->
+                            <Label x:Name="btn_active_select" Style="{StaticResource Footer_Workspace_label}">Selektieren</Label>
+                            <ToolTipService.ToolTip>
+                                <TextBlock MaxWidth="200" Height="Auto" TextWrapping="Wrap">Durch Aktivierung/Deaktiverung der Selektfunktion können Bilder ausgewählt werden, die in den Workspace Übertragen werden sollen.</TextBlock>
+                            </ToolTipService.ToolTip>
+                        </kElements:SegmentationButton>
+                    </Grid>
+                </Grid>
+
+                <!-- Content -->
+                <ScrollViewer k:KinectRegion.IsHorizontalRailEnabled="True" k:KinectRegion.IsScrollInertiaEnabled="True" k:KinectRegion.ZoomMode="Enabled"  x:Name="GridViewScroll" Style="{StaticResource GridView}">
+                    <ListView x:Name="lbImageGallery" 
+                         ItemsSource="{Binding}" 
+                         ItemsPanel="{DynamicResource ImageGalleryItemsPanelTemplate}" 
+                         ItemTemplate="{StaticResource ListImageDataTemplate}" 
+                         Style="{StaticResource GridViewList}"/>
+                </ScrollViewer>
+            </DockPanel>
+        </Grid>
+    </k:KinectRegion>
+</Window>

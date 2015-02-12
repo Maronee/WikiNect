@@ -1,0 +1,431 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:k="clr-namespace:Kinect">
+
+    <SolidColorBrush x:Key="KinectLightGray" Color="#D2D2D2"/>
+    <SolidColorBrush x:Key="KinectDarkGray" Color="#505050"/>
+    <SolidColorBrush x:Key="KinectPurpleBrush" Color="#FF52318F"/>
+    <SolidColorBrush x:Key="KinectLabelBackgroundBrush" Color="#E6FFFFFF"/>
+    <SolidColorBrush x:Key="KinectButtonForegroundBrush" Color="#FF5A5B5B"/>
+    <SolidColorBrush x:Key="KinectWhiteBrush" Color="#FFFFFFFF"/>
+    <SolidColorBrush x:Key="KinectButtonBorderBrush" Color="#FF939598"/>
+    <SolidColorBrush x:Key="KinectButtonPressedOverlayBrush" Color="#32000000"/>
+    <SolidColorBrush x:Key="ForegroundThemeBrush" Color="Black"/>
+    <SolidColorBrush x:Key="KinectCircleButtonDisabledForegroundThemeBrush" Color="#939597"/>
+    <SolidColorBrush x:Key="KinectCircleButtonPressedForegroundThemeBrush" Color="White"/>
+    <SolidColorBrush x:Key="KinectCursorPressingProgressOverlayBrush" Color="#44FFFFFF" />
+
+    <k:ContentStateToVisibilityConverter x:Key="ContentStateToVisibilityConverter" />
+
+
+    <Style x:Key="circle" TargetType="k:KinectCircleButton">
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="Foreground" Value="{StaticResource KinectCircleButtonForegroundThemeBrush}"/>
+        <Setter Property="ContentForeground" Value="{Binding Path=Foreground, RelativeSource={RelativeSource Self}}"/>
+        <Setter Property="ContentPressedForeground" Value="{StaticResource KinectCircleButtonPressedForegroundThemeBrush}"/>
+        <Setter Property="FontFamily" Value="Segoe UI Light"/>
+        <Setter Property="FontWeight" Value="Light"/>
+        <Setter Property="FontSize" Value="48px"/>
+        <Setter Property="HorizontalAlignment" Value="Center" />
+        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="HorizontalLabelAlignment" Value="Center"/>
+        <Setter Property="VerticalLabelAlignment" Value="Center"/>
+        <Style.Triggers>
+            <Trigger Property="LabelPosition" Value="Bottom">
+                <Setter Property="Width" Value="165"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type k:KinectCircleButton}">
+                            <Viewbox Stretch="Uniform">
+                                <Viewbox.RenderTransform>
+                                    <ScaleTransform x:Name="CircleButtonRenderTransform" ScaleX="1.0" ScaleY="1.0"/>
+                                </Viewbox.RenderTransform>
+                                <Viewbox.RenderTransformOrigin>
+                                    <Point X="0.5" Y="0.5"/>
+                                </Viewbox.RenderTransformOrigin>
+                                <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
+                                    <Grid HorizontalAlignment="Center" Margin="30, 30, 30, 30" Background="Transparent">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="105" />
+                                            <RowDefinition Height="Auto" />
+                                        </Grid.RowDefinitions>
+                                        <Ellipse Stroke="{TemplateBinding Foreground}" StrokeThickness="0" Fill="{TemplateBinding Foreground}" Opacity="0.0" Height="105" Width="105" x:Name="ellipseFill"  Grid.Row="0"/>
+                                        <Ellipse Stroke="{TemplateBinding Foreground}" StrokeThickness="9" Fill="Transparent" Height="105" Width="105" x:Name="ellipse"  Grid.Row="0"/>
+                                        <ContentPresenter Content="{TemplateBinding Content}" x:Name="PART_DefaultContentPresenter" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" Grid.Row="0">
+                                            <ContentPresenter.Resources>
+                                                <Style TargetType="{x:Type TextBlock}">
+                                                    <Setter Property="Foreground" Value="{Binding ContentForeground, RelativeSource={RelativeSource AncestorType={x:Type k:KinectCircleButton}}}"></Setter>
+                                                    <Setter Property="FontSize" Value="44"/>
+                                                    <Setter Property="FontWeight" Value="Normal"/>
+                                                    <Setter Property="FontFamily" Value="Segoe UI Symbol"/>
+                                                    <Setter Property="TextAlignment" Value="Center"/>
+                                                </Style>
+                                            </ContentPresenter.Resources>
+                                        </ContentPresenter>
+                                        <Border Grid.Row="1" Background="{TemplateBinding LabelBackground}"
+                                                Visibility="{TemplateBinding Label, Converter={StaticResource ContentStateToVisibilityConverter}}">
+                                            <ContentPresenter 
+                                                x:Name="contentPresenter" 
+                                                ContentTemplate="{TemplateBinding LabelTemplate}"
+                                                ContentTemplateSelector="{TemplateBinding LabelTemplateSelector}"
+                                                Content="{TemplateBinding Label}" 
+                                                HorizontalAlignment="{TemplateBinding HorizontalLabelAlignment}"
+                                                VerticalAlignment="{TemplateBinding VerticalLabelAlignment}"
+                                                TextBlock.Foreground="{Binding Foreground, RelativeSource={RelativeSource AncestorType={x:Type k:KinectCircleButton}}}">
+                                                <ContentPresenter.Resources>
+                                                    <Style TargetType="{x:Type TextBlock}">
+                                                        <Setter Property="FontSize" Value="{Binding FontSize, RelativeSource={RelativeSource AncestorType={x:Type k:KinectCircleButton}}}"/>
+                                                        <Setter Property="FontWeight" Value="{Binding FontWeight, RelativeSource={RelativeSource AncestorType={x:Type k:KinectCircleButton}}}"/>
+                                                        <Setter Property="TextTrimming" Value="WordEllipsis" />
+                                                    </Style>
+                                                </ContentPresenter.Resources>
+                                            </ContentPresenter>
+                                        </Border>
+                                    </Grid>
+                                </Border>
+                                <VisualStateManager.VisualStateGroups>
+                                    <VisualStateGroup x:Name="CommonStates">
+                                        <VisualState x:Name="Normal">
+                                            <Storyboard>
+                                                <DoubleAnimation Duration="00:00:00.15" To="1.0" Storyboard.TargetName="CircleButtonRenderTransform" Storyboard.TargetProperty="ScaleX"/>
+                                                <DoubleAnimation Duration="00:00:00.15" To="1.0" Storyboard.TargetName="CircleButtonRenderTransform" Storyboard.TargetProperty="ScaleY"/>
+                                                <DoubleAnimation Duration="00:00:00" To="0.0" Storyboard.TargetName="ellipseFill" Storyboard.TargetProperty="Opacity"/>
+                                            </Storyboard>
+                                        </VisualState>
+                                        <VisualState x:Name="MouseOver">
+                                            <Storyboard>
+                                                <DoubleAnimation Duration="00:00:00.15" To="1.05" Storyboard.TargetName="CircleButtonRenderTransform" Storyboard.TargetProperty="ScaleX"/>
+                                                <DoubleAnimation Duration="00:00:00.15" To="1.05" Storyboard.TargetName="CircleButtonRenderTransform" Storyboard.TargetProperty="ScaleY"/>
+                                                <DoubleAnimation Duration="00:00:00" To="0.33" Storyboard.TargetName="ellipseFill" Storyboard.TargetProperty="Opacity"/>
+                                            </Storyboard>
+                                        </VisualState>
+                                        <VisualState x:Name="Pressed">
+                                            <Storyboard>
+                                                <DoubleAnimation Duration="00:00:00.15" To="0.95" Storyboard.TargetName="CircleButtonRenderTransform" Storyboard.TargetProperty="ScaleX"/>
+                                                <DoubleAnimation Duration="00:00:00.15" To="0.95" Storyboard.TargetName="CircleButtonRenderTransform" Storyboard.TargetProperty="ScaleY"/>
+                                                <DoubleAnimation Duration="00:00:00" To="1.00" Storyboard.TargetName="ellipseFill" Storyboard.TargetProperty="Opacity"/>
+                                            </Storyboard>
+                                        </VisualState>
+                                        <VisualState x:Name="Disabled">
+                                            <Storyboard>
+                                                <DoubleAnimation Duration="00:00:00" To="1.0" Storyboard.TargetName="CircleButtonRenderTransform" Storyboard.TargetProperty="ScaleX"/>
+                                                <DoubleAnimation Duration="00:00:00" To="1.0" Storyboard.TargetName="CircleButtonRenderTransform" Storyboard.TargetProperty="ScaleY"/>
+                                            </Storyboard>
+                                        </VisualState>
+                                    </VisualStateGroup>
+                                    <VisualStateGroup x:Name="FocusStates">
+                                        <VisualState x:Name="Focused">
+                                            <Storyboard>
+                                            </Storyboard>
+                                        </VisualState>
+                                        <VisualState x:Name="Unfocused" />
+                                    </VisualStateGroup>
+                                </VisualStateManager.VisualStateGroups>
+                            </Viewbox>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsEnabled" Value="False">
+                                    <Setter TargetName="ellipseFill" Property="Fill" Value="{StaticResource KinectCircleButtonDisabledForegroundThemeBrush}"></Setter>
+                                    <Setter TargetName="ellipseFill" Property="Stroke" Value="{StaticResource KinectCircleButtonDisabledForegroundThemeBrush}"></Setter>
+                                    <Setter TargetName="ellipse" Property="Stroke" Value="{StaticResource KinectCircleButtonDisabledForegroundThemeBrush}"></Setter>
+                                    <Setter TargetName="contentPresenter" Property="TextBlock.Foreground" Value="{StaticResource KinectCircleButtonDisabledForegroundThemeBrush}"></Setter>
+                                    <Setter Property="ContentForeground" Value="{StaticResource KinectCircleButtonDisabledForegroundThemeBrush}"></Setter>
+                                </Trigger>
+                                <Trigger Property="IsPressed" Value="True">
+                                    <Setter Property="ContentForeground" Value="{Binding Path=ContentPressedForeground, RelativeSource={RelativeSource Self}}"></Setter>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Trigger>
+            <Trigger Property="LabelPosition" Value="Right">
+                <Setter Property="Height" Value="165"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type k:KinectCircleButton}">
+                            <Viewbox Stretch="Uniform">
+                                <Viewbox.RenderTransform>
+                                    <ScaleTransform x:Name="CircleButtonRenderTransform" ScaleX="1.0" ScaleY="1.0"/>
+                                </Viewbox.RenderTransform>
+                                <Viewbox.RenderTransformOrigin>
+                                    <Point X="0.5" Y="0.5"/>
+                                </Viewbox.RenderTransformOrigin>
+                                <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
+                                    <Grid HorizontalAlignment="Center" Margin="30, 30, 30, 30" Background="Transparent">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="105" />
+                                            <ColumnDefinition Width="Auto" />
+                                        </Grid.ColumnDefinitions>
+                                        <Ellipse Stroke="{TemplateBinding Foreground}" StrokeThickness="0" Fill="{TemplateBinding Foreground}" Opacity="0.0" Height="105" Width="105" x:Name="ellipseFill"  Grid.Row="0"/>
+                                        <Ellipse Stroke="{TemplateBinding Foreground}" StrokeThickness="9" Fill="Transparent" Height="105" Width="105" x:Name="ellipse"  Grid.Row="0"/>
+                                        <ContentPresenter Content="{TemplateBinding Content}" x:Name="PART_DefaultContentPresenter" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" Grid.Row="0">
+                                            <ContentPresenter.Resources>
+                                                <Style TargetType="{x:Type TextBlock}">
+                                                    <Setter Property="Foreground" Value="{Binding ContentForeground, RelativeSource={RelativeSource AncestorType={x:Type k:KinectCircleButton}}}"></Setter>
+                                                    <Setter Property="FontSize" Value="44"/>
+                                                    <Setter Property="FontWeight" Value="Normal"/>
+                                                    <Setter Property="FontFamily" Value="Segoe UI Symbol"/>
+                                                    <Setter Property="TextAlignment" Value="Center"/>
+                                                </Style>
+                                            </ContentPresenter.Resources>
+                                        </ContentPresenter>
+                                        <Border Grid.Column="1" Background="{TemplateBinding LabelBackground}"
+                                                Margin="20,0,0,0"
+                                                Visibility="{TemplateBinding Label, Converter={StaticResource ContentStateToVisibilityConverter}}">
+                                            <ContentPresenter 
+                                                x:Name="contentPresenter" 
+                                                ContentTemplate="{TemplateBinding LabelTemplate}"
+                                                ContentTemplateSelector="{TemplateBinding LabelTemplateSelector}"
+                                                Content="{TemplateBinding Label}" 
+                                                HorizontalAlignment="{TemplateBinding HorizontalLabelAlignment}"
+                                                VerticalAlignment="{TemplateBinding VerticalLabelAlignment}"
+                                                TextBlock.Foreground="{Binding Foreground, RelativeSource={RelativeSource AncestorType={x:Type k:KinectCircleButton}}}">
+                                                <ContentPresenter.Resources>
+                                                    <Style TargetType="{x:Type TextBlock}">
+                                                        <Setter Property="FontSize" Value="{Binding FontSize, RelativeSource={RelativeSource AncestorType={x:Type k:KinectCircleButton}}}"/>
+                                                        <Setter Property="FontWeight" Value="{Binding FontWeight, RelativeSource={RelativeSource AncestorType={x:Type k:KinectCircleButton}}}"/>
+                                                        <Setter Property="TextTrimming" Value="WordEllipsis" />
+                                                    </Style>
+                                                </ContentPresenter.Resources>
+                                            </ContentPresenter>
+                                        </Border>
+                                    </Grid>
+                                </Border>
+                                <VisualStateManager.VisualStateGroups>
+                                    <VisualStateGroup x:Name="CommonStates">
+                                        <VisualState x:Name="Normal">
+                                            <Storyboard>
+                                                <DoubleAnimation Duration="00:00:00.15" To="1.0" Storyboard.TargetName="CircleButtonRenderTransform" Storyboard.TargetProperty="ScaleX"/>
+                                                <DoubleAnimation Duration="00:00:00.15" To="1.0" Storyboard.TargetName="CircleButtonRenderTransform" Storyboard.TargetProperty="ScaleY"/>
+                                                <DoubleAnimation Duration="00:00:00" To="0.0" Storyboard.TargetName="ellipseFill" Storyboard.TargetProperty="Opacity"/>
+                                            </Storyboard>
+                                        </VisualState>
+                                        <VisualState x:Name="MouseOver">
+                                            <Storyboard>
+                                                <DoubleAnimation Duration="00:00:00.15" To="1.05" Storyboard.TargetName="CircleButtonRenderTransform" Storyboard.TargetProperty="ScaleX"/>
+                                                <DoubleAnimation Duration="00:00:00.15" To="1.05" Storyboard.TargetName="CircleButtonRenderTransform" Storyboard.TargetProperty="ScaleY"/>
+                                                <DoubleAnimation Duration="00:00:00" To="0.33" Storyboard.TargetName="ellipseFill" Storyboard.TargetProperty="Opacity"/>
+                                            </Storyboard>
+                                        </VisualState>
+                                        <VisualState x:Name="Pressed">
+                                            <Storyboard>
+                                                <DoubleAnimation Duration="00:00:00.15" To="0.95" Storyboard.TargetName="CircleButtonRenderTransform" Storyboard.TargetProperty="ScaleX"/>
+                                                <DoubleAnimation Duration="00:00:00.15" To="0.95" Storyboard.TargetName="CircleButtonRenderTransform" Storyboard.TargetProperty="ScaleY"/>
+                                                <DoubleAnimation Duration="00:00:00" To="1.00" Storyboard.TargetName="ellipseFill" Storyboard.TargetProperty="Opacity"/>
+                                            </Storyboard>
+                                        </VisualState>
+                                        <VisualState x:Name="Disabled">
+                                            <Storyboard>
+                                                <DoubleAnimation Duration="00:00:00" To="1.0" Storyboard.TargetName="CircleButtonRenderTransform" Storyboard.TargetProperty="ScaleX"/>
+                                                <DoubleAnimation Duration="00:00:00" To="1.0" Storyboard.TargetName="CircleButtonRenderTransform" Storyboard.TargetProperty="ScaleY"/>
+                                            </Storyboard>
+                                        </VisualState>
+                                    </VisualStateGroup>
+                                    <VisualStateGroup x:Name="FocusStates">
+                                        <VisualState x:Name="Focused">
+                                            <Storyboard>
+                                            </Storyboard>
+                                        </VisualState>
+                                        <VisualState x:Name="Unfocused" />
+                                    </VisualStateGroup>
+                                </VisualStateManager.VisualStateGroups>
+                            </Viewbox>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsEnabled" Value="False">
+                                    <Setter TargetName="ellipseFill" Property="Fill" Value="{StaticResource KinectCircleButtonDisabledForegroundThemeBrush}"></Setter>
+                                    <Setter TargetName="ellipseFill" Property="Stroke" Value="{StaticResource KinectCircleButtonDisabledForegroundThemeBrush}"></Setter>
+                                    <Setter TargetName="ellipse" Property="Stroke" Value="{StaticResource KinectCircleButtonDisabledForegroundThemeBrush}"></Setter>
+                                    <Setter TargetName="contentPresenter" Property="TextBlock.Foreground" Value="{StaticResource KinectCircleButtonDisabledForegroundThemeBrush}"></Setter>
+                                    <Setter Property="ContentForeground" Value="{StaticResource KinectCircleButtonDisabledForegroundThemeBrush}"></Setter>
+                                </Trigger>
+                                <Trigger Property="IsPressed" Value="True">
+                                    <Setter Property="ContentForeground" Value="{Binding Path=ContentPressedForeground, RelativeSource={RelativeSource Self}}"></Setter>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Trigger>
+            <Trigger Property="LabelPosition" Value="None">
+                <Setter Property="Width" Value="165"/>
+                <Setter Property="Height" Value="165"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type k:KinectCircleButton}">
+                            <Viewbox Stretch="Uniform">
+                                <Viewbox.RenderTransform>
+                                    <ScaleTransform x:Name="CircleButtonRenderTransform" ScaleX="1.0" ScaleY="1.0"/>
+                                </Viewbox.RenderTransform>
+                                <Viewbox.RenderTransformOrigin>
+                                    <Point X="0.5" Y="0.5"/>
+                                </Viewbox.RenderTransformOrigin>
+                                <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
+                                    <Grid HorizontalAlignment="Center" Margin="30, 30, 30, 30" Background="Transparent">
+
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="105" />
+                                            <RowDefinition Height="Auto" />
+                                        </Grid.RowDefinitions>
+                                        <Ellipse Stroke="{TemplateBinding Foreground}" StrokeThickness="0" Fill="{TemplateBinding Foreground}" Opacity="0.0" Height="105" Width="105" x:Name="ellipseFill"  Grid.Row="0"/>
+                                        <Ellipse Stroke="{TemplateBinding Foreground}" StrokeThickness="9" Fill="Transparent" Height="105" Width="105" x:Name="ellipse"  Grid.Row="0"/>
+                                        <ContentPresenter Content="{TemplateBinding Content}" x:Name="PART_DefaultContentPresenter" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" Grid.Row="0">
+                                            <ContentPresenter.Resources>
+                                                <Style TargetType="{x:Type TextBlock}">
+                                                    <Setter Property="Foreground" Value="{Binding ContentForeground, RelativeSource={RelativeSource AncestorType={x:Type k:KinectCircleButton}}}"></Setter>
+                                                    <Setter Property="FontSize" Value="44"/>
+                                                    <Setter Property="FontWeight" Value="Normal"/>
+                                                    <Setter Property="FontFamily" Value="Segoe UI Symbol"/>
+                                                    <Setter Property="TextAlignment" Value="Center"/>
+                                                </Style>
+                                            </ContentPresenter.Resources>
+                                        </ContentPresenter>
+                                    </Grid>
+                                </Border>
+                                <VisualStateManager.VisualStateGroups>
+                                    <VisualStateGroup x:Name="CommonStates">
+                                        <VisualState x:Name="Normal">
+                                            <Storyboard>
+                                                <DoubleAnimation Duration="00:00:00.15" To="1.0" Storyboard.TargetName="CircleButtonRenderTransform" Storyboard.TargetProperty="ScaleX"/>
+                                                <DoubleAnimation Duration="00:00:00.15" To="1.0" Storyboard.TargetName="CircleButtonRenderTransform" Storyboard.TargetProperty="ScaleY"/>
+                                                <DoubleAnimation Duration="00:00:00" To="0.0" Storyboard.TargetName="ellipseFill" Storyboard.TargetProperty="Opacity"/>
+                                            </Storyboard>
+                                        </VisualState>
+                                        <VisualState x:Name="MouseOver">
+                                            <Storyboard>
+                                                <DoubleAnimation Duration="00:00:00.15" To="1.05" Storyboard.TargetName="CircleButtonRenderTransform" Storyboard.TargetProperty="ScaleX"/>
+                                                <DoubleAnimation Duration="00:00:00.15" To="1.05" Storyboard.TargetName="CircleButtonRenderTransform" Storyboard.TargetProperty="ScaleY"/>
+                                                <DoubleAnimation Duration="00:00:00" To="0.33" Storyboard.TargetName="ellipseFill" Storyboard.TargetProperty="Opacity"/>
+                                            </Storyboard>
+                                        </VisualState>
+                                        <VisualState x:Name="Pressed">
+                                            <Storyboard>
+                                                <DoubleAnimation Duration="00:00:00.15" To="0.95" Storyboard.TargetName="CircleButtonRenderTransform" Storyboard.TargetProperty="ScaleX"/>
+                                                <DoubleAnimation Duration="00:00:00.15" To="0.95" Storyboard.TargetName="CircleButtonRenderTransform" Storyboard.TargetProperty="ScaleY"/>
+                                                <DoubleAnimation Duration="00:00:00" To="1.00" Storyboard.TargetName="ellipseFill" Storyboard.TargetProperty="Opacity"/>
+                                            </Storyboard>
+                                        </VisualState>
+                                        <VisualState x:Name="Disabled">
+                                            <Storyboard>
+                                                <DoubleAnimation Duration="00:00:00" To="1.0" Storyboard.TargetName="CircleButtonRenderTransform" Storyboard.TargetProperty="ScaleX"/>
+                                                <DoubleAnimation Duration="00:00:00" To="1.0" Storyboard.TargetName="CircleButtonRenderTransform" Storyboard.TargetProperty="ScaleY"/>
+                                            </Storyboard>
+                                        </VisualState>
+                                    </VisualStateGroup>
+                                    <VisualStateGroup x:Name="FocusStates">
+                                        <VisualState x:Name="Focused">
+                                            <Storyboard>
+                                            </Storyboard>
+                                        </VisualState>
+                                        <VisualState x:Name="Unfocused" />
+                                    </VisualStateGroup>
+                                </VisualStateManager.VisualStateGroups>
+                            </Viewbox>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsEnabled" Value="False">
+                                    <Setter TargetName="ellipseFill" Property="Fill" Value="{StaticResource KinectCircleButtonDisabledForegroundThemeBrush}"></Setter>
+                                    <Setter TargetName="ellipseFill" Property="Stroke" Value="{StaticResource KinectCircleButtonDisabledForegroundThemeBrush}"></Setter>
+                                    <Setter TargetName="ellipse" Property="Stroke" Value="{StaticResource KinectCircleButtonDisabledForegroundThemeBrush}"></Setter>
+                                    <Setter Property="ContentForeground" Value="{StaticResource KinectCircleButtonDisabledForegroundThemeBrush}"></Setter>
+                                </Trigger>
+                                <Trigger Property="IsPressed" Value="True">
+                                    <Setter Property="ContentForeground" Value="{Binding Path=ContentPressedForeground, RelativeSource={RelativeSource Self}}"></Setter>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style x:Key="TileButton" TargetType="{x:Type k:KinectTileButton}">
+        <Setter Property="Background" Value="{StaticResource KinectWhiteBrush}" />
+        <Setter Property="LabelBackground" Value="{StaticResource KinectLabelBackgroundBrush}" />
+        <Setter Property="Foreground" Value="{StaticResource KinectButtonForegroundBrush}" />
+        <Setter Property="FontFamily" Value="Segoe UI" />
+        <Setter Property="FontSize" Value="24pt" />
+        <Setter Property="Height" Value="220" />
+        <Setter Property="Width" Value="220" />
+        <Setter Property="FontWeight" Value="Normal" />
+        <Setter Property="HorizontalLabelAlignment" Value="Left" />
+        <Setter Property="VerticalLabelAlignment" Value="Bottom" />
+        <Setter Property="HorizontalContentAlignment" Value="Center" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="BorderBrush" Value="{StaticResource KinectButtonBorderBrush}" />
+
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="k:KinectTileButton">
+                    <Grid>
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualState x:Name="Normal">
+                                    <Storyboard>
+                                        <ThicknessAnimation Duration="00:00:00.15" To="5" Storyboard.TargetProperty="BorderThickness" Storyboard.TargetName="transparentBorder" />
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="MouseOver">
+                                    <Storyboard>
+                                        <ThicknessAnimation Duration="00:00:00.15" To="0" Storyboard.TargetProperty="BorderThickness" Storyboard.TargetName="transparentBorder" />
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="Pressed">
+                                    <Storyboard>
+                                        <ThicknessAnimation Duration="00:00:00.15" To="10" Storyboard.TargetProperty="BorderThickness" Storyboard.TargetName="transparentBorder" />
+                                        <DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="Opacity" Storyboard.TargetName="PressedVisualElement" />
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="Disabled">
+                                    <Storyboard>
+                                        <DoubleAnimation Duration="0" To=".55" Storyboard.TargetProperty="Opacity" Storyboard.TargetName="DisabledVisualElement" />
+                                    </Storyboard>
+                                </VisualState>
+                            </VisualStateGroup>
+                            <VisualStateGroup x:Name="FocusStates">
+                                <VisualState x:Name="Focused">
+                                    <Storyboard>
+                                        <DoubleAnimation Duration="0" To="0.9" Storyboard.TargetProperty="Opacity" Storyboard.TargetName="FocusVisualElement" />
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="Unfocused" />
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                        <Border BorderThickness="5" BorderBrush="Transparent"
+                            x:Name="transparentBorder">
+                            <Viewbox  Stretch="UniformToFill">
+                                <Border BorderThickness="{TemplateBinding BorderThickness}" BorderBrush="{TemplateBinding BorderBrush}">
+                                    <Grid Background="{TemplateBinding Background}" Height="{TemplateBinding ActualHeight}" Width="{TemplateBinding ActualWidth}" >
+                                        <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                            ContentTemplate="{TemplateBinding ContentTemplate}" 
+                                            Content="{TemplateBinding Content}" />
+                                        <Border Background="{TemplateBinding LabelBackground}" VerticalAlignment="{TemplateBinding VerticalLabelAlignment}" 
+                                                Visibility="{TemplateBinding Label, Converter={StaticResource ContentStateToVisibilityConverter}}">
+                                            <ContentPresenter 
+                                                x:Name="contentPresenter" 
+                                                ContentTemplate="{TemplateBinding LabelTemplate}"
+                                                ContentTemplateSelector="{TemplateBinding LabelTemplateSelector}"
+                                                Content="{TemplateBinding Label}" 
+                                                HorizontalAlignment="{TemplateBinding HorizontalLabelAlignment}">
+                                                <ContentPresenter.Resources>
+                                                    <Style TargetType="{x:Type TextBlock}">
+                                                        <Setter Property="Padding" Value="14,13,15,15"/>
+                                                    </Style>
+                                                </ContentPresenter.Resources>
+                                            </ContentPresenter>
+                                        </Border>
+                                        <Rectangle x:Name="DisabledVisualElement" Fill="White" IsHitTestVisible="false" Opacity="0" RadiusY="3" RadiusX="3" />
+                                        <Rectangle x:Name="FocusVisualElement" IsHitTestVisible="false" Margin="1" Opacity="0" Stroke="White" StrokeThickness="2" />
+                                        <Rectangle x:Name="PressedVisualElement" IsHitTestVisible="false" Opacity="0" Fill="{StaticResource KinectButtonPressedOverlayBrush}" />
+                                    </Grid>
+                                </Border>
+                            </Viewbox>
+                        </Border>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    
+</ResourceDictionary>

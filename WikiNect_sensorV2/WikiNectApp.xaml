@@ -1,0 +1,16 @@
+﻿<Application x:Class="WikiNectLayout.WikiNectApp"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             StartupUri="WikiNect_new.xaml">
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Implementations/Styles/MainStyle.xaml"/>
+                <ResourceDictionary Source="Implementations/Styles/ImageDisplayStyle.xaml"/>
+                <ResourceDictionary Source="Implementations/Styles/GraphDisplayStyle.xaml"/>
+                <ResourceDictionary Source="Implementations/Styles/SegmentationStyle.xaml"/>
+                <ResourceDictionary Source="Implementations/Styles/sdk1_8_styles.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>

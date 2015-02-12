@@ -1,0 +1,89 @@
+﻿<UserControl x:Class="WikiNectLayout.Implementions.Xamls.GraphDisplay"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:k="http://schemas.microsoft.com/kinect/2013"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:kElements="clr-namespace:Kinect"
+             xmlns:graphsharp="clr-namespace:GraphSharp.Controls;assembly=GraphSharp.Controls"
+             xmlns:zoom="clr-namespace:WPFExtensions.Controls;assembly=WPFExtensions"
+             xmlns:local="clr-namespace:Graphspace"
+             mc:Ignorable="d" 
+             d:DesignHeight="800" d:DesignWidth="1200"
+             x:Name="root">
+    <UserControl.Resources>
+        <DataTemplate x:Key="demoTemplate" DataType ="{x:Type local:WikiVertex}">
+            <Border BorderBrush="{Binding color}"
+                    Background="Black"
+					BorderThickness="3"
+					CornerRadius="5,5,5,5"
+					Padding="5,5,5,5">
+                <StackPanel Orientation="Vertical" Width="auto" Height="auto" >
+                    <Image x:Name="img" Source="{Binding bild}" Visibility="{Binding bild_show}"  MaxWidth="150" MaxHeight="150"/>
+                    <TextBlock x:Name="text"  Text="{Binding text}" Visibility="{Binding text_show}" Foreground="White" />
+                </StackPanel>
+                <Border.Effect>
+                    <DropShadowEffect BlurRadius="2" Color="LightGray" 
+                                    Opacity="0.3" Direction="315"/>
+                </Border.Effect>
+            </Border>
+        </DataTemplate>
+
+        <Style TargetType="{x:Type graphsharp:VertexControl}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type graphsharp:VertexControl}">
+                        <StackPanel Orientation="Vertical">
+                            <ContentPresenter Content="{TemplateBinding Vertex}" 
+                                            ContentTemplate="{StaticResource demoTemplate}"/>
+                        </StackPanel>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+    </UserControl.Resources>
+
+    <Grid x:Name="graphDisplayWindow" Background="Transparent">
+        <DockPanel x:Name="graphDisplaContent">
+            <!-- Header -->
+            <Grid x:Name="Header"  DockPanel.Dock="Top" Style="{StaticResource Header}">
+                <StackPanel Orientation="Horizontal">
+                    <Grid Style="{StaticResource grid_backbtn}">
+                        <kElements:KinectCircleButton x:Name="btnBack" Click="OnLoadedStoryboardCompleted" Style="{StaticResource backbtn}">
+                            <Path Style="{StaticResource path_backbtn}" />
+                        </kElements:KinectCircleButton>
+                    </Grid>
+                    <Label Content="{Binding title}" Style="{StaticResource Logo_Label}"/>
+
+                </StackPanel>
+            </Grid>
+            
+            <!-- Content -->
+            <Grid x:Name="GraphShow">
+                <zoom:ZoomControl  Grid.Row="1"  Zoom="0.2" 
+                    ZoomBoxOpacity="0.5" Background="Transparent">
+                    <local:WikiGraphLayout x:Name="graphLayout" Margin="10"
+                        Graph="{Binding Path=Graph}"
+                        LayoutAlgorithmType="{Binding Path=LayoutAlgorithmType, Mode=OneWay}"
+                        OverlapRemovalAlgorithmType="FSA"
+                        HighlightAlgorithmType="Simple"/>
+                </zoom:ZoomControl>
+                
+                <ListBox x:Name="legende" VerticalAlignment="Bottom" HorizontalAlignment="Right" Background="Black" ItemsSource="{Binding}"  Margin="0,0,120,50">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <Label Background="{Binding color}" Width="10" Height="10" Margin="10,0,0,0"/>
+                                <Label Foreground="White" Content="{Binding title}" Margin="0,0,10,0"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+                <StackPanel >
+                    
+                </StackPanel>
+            </Grid>
+        </DockPanel>
+    </Grid>
+</UserControl>
