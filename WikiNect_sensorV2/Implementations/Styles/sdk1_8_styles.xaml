@@ -10,6 +10,7 @@
     <SolidColorBrush x:Key="KinectWhiteBrush" Color="#FFFFFFFF"/>
     <SolidColorBrush x:Key="KinectButtonBorderBrush" Color="#FF939598"/>
     <SolidColorBrush x:Key="KinectButtonPressedOverlayBrush" Color="#32000000"/>
+    <SolidColorBrush x:Key="KinectCircleButtonForegroundThemeBrush" Color="Black"/>
     <SolidColorBrush x:Key="ForegroundThemeBrush" Color="Black"/>
     <SolidColorBrush x:Key="KinectCircleButtonDisabledForegroundThemeBrush" Color="#939597"/>
     <SolidColorBrush x:Key="KinectCircleButtonPressedForegroundThemeBrush" Color="White"/>
