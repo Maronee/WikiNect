@@ -81,6 +81,7 @@
       <HintPath>Libaries\GraphSharp\GraphSharp.Controls.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Kinect, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.Kinect.VisualGestureBuilder, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=x86" />
     <Reference Include="Microsoft.Kinect.Wpf.Controls, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.QualityTools.Testing.Fakes, Version=11.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
@@ -132,12 +133,18 @@
     <Compile Include="Implementations\Database\CoockeWebClient.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Implementations\KinectElements\from_1_8\CircleButton.cs" />
     <Compile Include="Implementations\KinectElements\from_1_8\ContentStateToVisibilityConverter.cs" />
-    <Compile Include="Implementations\KinectElements\from_1_8\KinectTileButton.cs" />
+    <Compile Include="Implementations\KinectElements\from_1_8\TileButton.cs" />
     <Compile Include="Implementations\KinectElements\KeyboardButton.cs" />
     <Compile Include="Implementations\KinectElements\KeyboardHandler.cs" />
-    <Compile Include="Implementations\KinectElements\from_1_8\KinectCircleButton.cs" />
     <Compile Include="Implementations\KinectElements\SegmentationButton_old.cs" />
+    <Compile Include="Implementations\KinectElements\Version2\Gripable.cs" />
+    <Compile Include="Implementations\KinectElements\Version2\GripAndPressable.cs" />
+    <Compile Include="Implementations\KinectElements\Version2\KinectInteractionController.cs" />
+    <Compile Include="Implementations\KinectElements\Version2\KinoogleExtensions.cs" />
+    <Compile Include="Implementations\KinectElements\Version2\KinoogleInterface.cs" />
+    <Compile Include="Implementations\KinectElements\Version2\Pressable.cs" />
     <Compile Include="Implementations\Models\Model_Legende.cs" />
     <Compile Include="Implementations\Models\Model_Header.cs" />
     <Compile Include="Implementations\Models\Model_Image.cs" />

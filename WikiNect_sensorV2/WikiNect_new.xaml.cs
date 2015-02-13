@@ -104,19 +104,10 @@ namespace WikiNectLayout
 
         public void windowClosing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            //try
-            //{
-            //    this.sensorChooser.Stop();
-            //}
-            //catch (TypeInitializationException)
-            //{
-            //    Console.WriteLine("Irgendwas läuft hier falsch, aber ist nicht so wichtig");
-            //}
-            //catch (NullReferenceException)
-            //{
-            //    Console.WriteLine("Irgendwas läuft hier falsch, aber ist nicht so wichtig");
-            //}
-            //Application.Current.Shutdown();
+            WikiNectApp app = (WikiNectApp)Application.Current;
+            app.kinectSensor.Close();
+            app.kinectSensor = null;
+            Application.Current.Shutdown();
         }
         
         //public void sensorChooserOnKinectChanged(object sender, Microsoft.Kinect.Toolkit.KinectChangedEventArgs args)
@@ -207,7 +198,7 @@ namespace WikiNectLayout
                     Workspace_btn.Visibility = System.Windows.Visibility.Visible;
                     btnBack.Visibility = System.Windows.Visibility.Visible;
                     selectStartWorkspace.Visibility = System.Windows.Visibility.Visible;
-                    GridViewScroll.ScrollToHome();
+                    //GridViewScroll.ScrollToHome();
 
                     mHead.title = "Kategorie";
                     mHead.subTitle = mk.title;
@@ -300,6 +291,13 @@ namespace WikiNectLayout
                 this.page.Visibility = System.Windows.Visibility.Collapsed;
                 this.page_grid.Children.Add(imageDisplay);
             }
+        }
+
+        private void PressableWithoutKinoogle_HandPointerTapped(object sender, Microsoft.Kinect.Input.KinectTappedEventArgs e)
+        {
+            PressableWithoutKinoogle p = (PressableWithoutKinoogle)sender;
+            CategoryButton cbt = p.Content as CategoryButton;
+            cbt.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
         }
     }
 }

@@ -43,7 +43,7 @@
     </Style>
 
     <!-- Back Button -->
-    <Style x:Key="backbtn" BasedOn="{StaticResource circle}" TargetType="kElements:KinectCircleButton">
+    <Style x:Key="backbtn" BasedOn="{StaticResource CircleButton}" TargetType="kElements:KinectCircleButton">
         <Setter Property="Foreground" Value="White"/>
         <Setter Property="VerticalAlignment" Value="Bottom"/>
         <Setter Property="Height" Value="61"/>
@@ -59,7 +59,7 @@
     </Style>
     
     <!-- Style für KinectCircleButtons im Stackpanel -->
-    <Style x:Key="segmentationbtn" BasedOn="{StaticResource circle}" TargetType="kElements:KinectCircleButton">
+    <Style BasedOn="{StaticResource CircleButton}" x:Key="segmentationbtn" TargetType="kElements:KinectCircleButton">
         <Setter Property="Foreground" Value="White"/>
         <Setter Property="VerticalAlignment" Value="Top"/>
         <Setter Property="Height" Value="83"/>
@@ -67,7 +67,7 @@
     </Style>
     
     <!-- Style für LöschenButton im Workspace -->
-    <Style x:Key="segmentationbtn1" TargetType="kElements:KinectCircleButton">
+    <Style BasedOn="{StaticResource CircleButton}" x:Key="segmentationbtn1" TargetType="kElements:KinectCircleButton">
         <Setter Property="Height" Value="100"/>
         <Setter Property="Foreground" Value="White"/>
     </Style>

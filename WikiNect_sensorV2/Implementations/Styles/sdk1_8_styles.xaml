@@ -19,7 +19,7 @@
     <k:ContentStateToVisibilityConverter x:Key="ContentStateToVisibilityConverter" />
 
 
-    <Style x:Key="circle" TargetType="k:KinectCircleButton">
+    <Style x:Key="CircleButton" TargetType="k:KinectCircleButton">
         <Setter Property="Background" Value="Transparent"/>
         <Setter Property="Foreground" Value="{StaticResource KinectCircleButtonForegroundThemeBrush}"/>
         <Setter Property="ContentForeground" Value="{Binding Path=Foreground, RelativeSource={RelativeSource Self}}"/>

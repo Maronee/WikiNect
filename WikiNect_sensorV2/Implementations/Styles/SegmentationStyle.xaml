@@ -34,7 +34,7 @@
     </Style>
 
     <!-- Style für KinectCircleButton im Stackpanel für Segmentation-Werkzeuge und für Löschen Button bei ausgewählten Segmenten -->
-    <Style x:Key="segmentationbtn1" BasedOn="{StaticResource circle}" TargetType="kElements:KinectCircleButton">
+    <Style x:Key="segmentationbtn1" BasedOn="{StaticResource CircleButton}" TargetType="kElements:KinectCircleButton">
         <Setter Property="Height" Value="100"/>
         <Setter Property="Margin" Value="0,1,1,0"/>
         <Setter Property="BorderBrush" Value="White"/>

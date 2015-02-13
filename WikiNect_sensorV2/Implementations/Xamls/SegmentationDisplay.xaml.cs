@@ -15,7 +15,9 @@ using System.Windows.Media.Imaging;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 
-//using Microsoft.Kinect;
+
+using Microsoft.Kinect.Input;
+using Microsoft.Kinect.Toolkit.Input;
 
 using Kinect;
 using DataConnection;
@@ -80,6 +82,8 @@ namespace WikiNectLayout.Implementions.Xamls
         private bool isImgLoaded = false;
         #endregion
 
+
+
         #region MainWindow
         public SegmentationDisplay(KinImage image)
         {
@@ -89,7 +93,30 @@ namespace WikiNectLayout.Implementions.Xamls
             url_Seg = image.url;
             cropMode = CropMode.None;
             FirstRefreshImg();
+            this.Loaded += SegmentationDisplay_Loaded;
         }
+
+        void SegmentationDisplay_Loaded(object sender, RoutedEventArgs e)
+        {
+            var window = KinectCoreWindow.GetForCurrentThread();
+            window.PointerMoved += window_PointerMoved;
+
+        }
+        
+        KinectPointerPoint handPointer;
+        void window_PointerMoved(object sender, KinectPointerEventArgs e)
+        {
+            if (IsApplicableKinectPoint(e.CurrentPoint)) 
+            {
+                this.handPointer = e.CurrentPoint;
+            }
+        }
+
+        bool IsApplicableKinectPoint(KinectPointerPoint kinectPoint)
+        {
+            return (kinectPoint.Properties.IsEngaged &&
+              kinectPoint.Properties.IsInRange);
+        }  
         #endregion
 
         #region SegmentationDisplay Properties
@@ -174,65 +201,76 @@ namespace WikiNectLayout.Implementions.Xamls
         #endregion
 
         #region Kinect Private Methods
-        ////Grip on System.Windows.Controls.Image orgImage marked points on grip position
-        //private void KinectDrawing_Grip(object sender, HandPointerEventArgs e)
-        //{
-        //    orgImage = (KinImage)sender; // System.Windows.Controls.Image orgImage is the sender of Event
+        //Grip on System.Windows.Controls.Image orgImage marked points on grip position
+        private void KinectDrawing_Grip(object sender, Microsoft.Kinect.Input.KinectManipulationStartedEventArgs e)
+        {
+            //var parent = (Microsoft.Kinect.Toolkit.Input.ManipulatableModel)sender;
+            //GripAndPressable gp = (GripAndPressable)parent.Content;
+            //orgImage = (KinImage)gp.Content; // System.Windows.Controls.Image orgImage is the sender of Event
 
-        //    if (cropMode != CropMode.None && !this.IsCroppingDone)
-        //    {
-        //        //register the position of HandPointer in grip state
-        //        win_tempPoint = e.HandPointer.GetPosition(this.orgImage);
+            //System.Windows.Point targetLoc = orgImage.PointToScreen(new System.Windows.Point(0, 0));
+            //Rect rect = new Rect(targetLoc.X, targetLoc.Y, orgImage.Width, orgImage.Height);
+            //Point p = Microsoft.Kinect.Toolkit.Input.InputPointerManager.TransformInputPointerCoordinatesToWindowCoordinates(e.Position, rect);
 
-        //        //Converting System.Windows.Point to System.Drawing.Point
-        //        int x = Convert.ToInt32(win_tempPoint.X);
-        //        int y = Convert.ToInt32(win_tempPoint.Y);
+            if (cropMode != CropMode.None && !this.IsCroppingDone)
+            {
+                //register the position of HandPointer in grip state
+                win_tempPoint = new System.Windows.Point() { X = this.handPointer.Position.X * this.orgImage.ActualWidth, Y = this.handPointer.Position.Y * this.orgImage.ActualHeight };
 
-        //        //System.Drawing.Point for PolygonCrop Class in order to calculate Croping Region 
-        //        draw_tempPoint = new System.Drawing.Point(x, y);
-        //        clickCount = mouseClicked.Count;
+                //Converting System.Windows.Point to System.Drawing.Point
+                int x = Convert.ToInt32(win_tempPoint.X);
+                int y = Convert.ToInt32(win_tempPoint.Y);
 
-        //        //System.Windows.Point Container
-        //        mouseClicked.Add(win_tempPoint);
+                //System.Drawing.Point for PolygonCrop Class in order to calculate Croping Region 
+                draw_tempPoint = new System.Drawing.Point(x, y);
+                clickCount = mouseClicked.Count;
 
-        //        //System.Drawing.Point which will be passed to PolygonCrop Class
-        //        drawingTempPoints.Add(draw_tempPoint);
+                //System.Windows.Point Container
+                mouseClicked.Add(win_tempPoint);
 
-        //        // calls the drawing methode
-        //        DrawingLP(mouseClicked, drawingTempPoints);
-        //    }
+                //System.Drawing.Point which will be passed to PolygonCrop Class
+                drawingTempPoints.Add(draw_tempPoint);
+
+                // calls the drawing methode
+                DrawingLP(mouseClicked, drawingTempPoints);
+            }
 
 
-        //}
+        }
 
-        ////Pressing on System.Windows.Control.Image orgImage does the cropping like pressing the crop button "cropBtn"  
-        //private void OriginalImagePressed(object sender, HandPointerEventArgs e)
-        //{
-        //    orgImage = (KinImage)sender;
+        //Pressing on System.Windows.Control.Image orgImage does the cropping like pressing the crop button "cropBtn"  
+        private void OriginalImagePressed(object sender, Microsoft.Kinect.Input.KinectTappedEventArgs e)
+        {
+            //var gp = (GripAndPressable)Parent;
+            //orgImage = (KinImage)gp.Content;
 
-        //    if (!this.IsCroppingDone)
-        //    {
-        //        Cropping();
-        //    }
+            if (!this.IsCroppingDone)
+            {
+                Cropping();
+            }
 
-        //    else if (this.IsCroppingDone)
-        //    {
-        //        Refresh();
-        //    }
-        //}
+            else if (this.IsCroppingDone)
+            {
+                Refresh();
+            }
+        }
 
-        //private void CroppedImageGripped(object sender, HandPointerEventArgs e)
-        //{
-        //    crpImage = (KinImage)sender;
-        //    Save();
-        //}
+        private void CroppedImageGripped(object sender, Microsoft.Kinect.Input.KinectManipulationStartedEventArgs e)
+        {
+            //var parent = (GripAndPressable)sender;
+            //crpImage = (KinImage)parent.Content;
+            Refresh();
+        }
 
-        //private void CroppedImagePressed(object sender, HandPointerEventArgs e)
-        //{
-        //    crpImage = (KinImage)sender;
-        //    Refresh();
-        //}
+        private void CroppedImagePressed(object sender, Microsoft.Kinect.Input.KinectTappedEventArgs e)
+        {
+            //var parent = (GripAndPressable)sender;
+            //crpImage = (KinImage)parent.Content;
 
+            CroppedImagePickMethod();
+        }
+
+        
         #endregion
 
         #region Private Methodes
@@ -741,6 +779,11 @@ namespace WikiNectLayout.Implementions.Xamls
 
         private void CroppedImagePick(object sender, EventArgs e)
         {
+            CroppedImagePickMethod();
+        }
+
+        private void CroppedImagePickMethod()
+        {
             croppingCount++;
             saveNameCount++;
             KinImage displayCroppedImg = new KinImage();
@@ -749,8 +792,8 @@ namespace WikiNectLayout.Implementions.Xamls
             displayCroppedImg.Stretch = Stretch.Uniform;
             displayCroppedImg.StretchDirection = StretchDirection.Both;
             displayCroppedImg.Margin = new Thickness(5);
-     //AJ   Style imagestyle = this.FindResource("HoverImageStyle") as Style;
-    //AJ       displayCroppedImg.Style = imagestyle;
+            //AJ   Style imagestyle = this.FindResource("HoverImageStyle") as Style;
+            //AJ       displayCroppedImg.Style = imagestyle;
             displayCroppedImg.Source = VisualToImage.RenderVisual(crpImage);
             string fileNameToSave = VisualToImage.SavedUrl(url_Seg, saveNameCount, cropPanelRefresh, saveExtended);
             displayCroppedImg.url = fileNameToSave;
@@ -810,6 +853,7 @@ namespace WikiNectLayout.Implementions.Xamls
         {
             CroppedPanelRefresh();
         }
+
 
         //Help
         //private void HelpBtnOnClick(object sender, RoutedEventArgs e)

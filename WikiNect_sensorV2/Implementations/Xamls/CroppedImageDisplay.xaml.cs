@@ -44,5 +44,11 @@ namespace WikiNectLayout.Implementions.Xamls
             var parent = (Panel)this.Parent;
             parent.Children.Remove(this);   
         }
+
+        private void PressableWithoutKinoogle_HandPointerTapped(object sender, Microsoft.Kinect.Input.KinectTappedEventArgs e)
+        {
+            var parent = (Panel)this.Parent;
+            parent.Children.Remove(this);
+        }
     }
 }

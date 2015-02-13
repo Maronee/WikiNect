@@ -35,8 +35,8 @@
             <!-- Header -->
             <Grid x:Name="Header" DockPanel.Dock="Top" Style="{StaticResource Header}">
                 <StackPanel Orientation="Horizontal">
-                    <Grid Style="{StaticResource grid_backbtn}">
-                        <kElements:KinectCircleButton x:Name="btnBack" Click="OnLoadedStoryboardCompleted" Style="{StaticResource backbtn}">
+                    <Grid Style="{StaticResource grid_backbtn}" VerticalAlignment="Top" HorizontalAlignment="Center">
+                        <kElements:KinectCircleButton x:Name="btnBack" Click="OnLoadedStoryboardCompleted" Style="{StaticResource backbtn}" Visibility="Visible">
                             <Path Style="{StaticResource path_backbtn}" />
                         </kElements:KinectCircleButton>
                     </Grid>

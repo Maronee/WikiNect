@@ -27,6 +27,7 @@
             <UniformGrid Rows="3"></UniformGrid>
         </ItemsPanelTemplate>
         <DataTemplate x:Key="ListImageDataTemplate">
+
             <kElements:CategoryButton Style="{StaticResource GridViewItemButton}" BorderThickness="{Binding selected}" Click="button_show" >
                 <Grid x:Name="GridViewItem">
                     <Image Source="{Binding imagesource}" Style="{StaticResource GridViewItemImage}"/>
@@ -39,6 +40,7 @@
                     </StackPanel>
                 </Grid>
             </kElements:CategoryButton>
+
         </DataTemplate>
         <!-- Back Button --><!--
         <Style x:Key="grid_backbtn" TargetType="Grid">
@@ -111,13 +113,13 @@
                 </Grid>
 
                 <!-- Content -->
-                <ScrollViewer k:KinectRegion.IsHorizontalRailEnabled="True" k:KinectRegion.IsScrollInertiaEnabled="True" k:KinectRegion.ZoomMode="Enabled"  x:Name="GridViewScroll" Style="{StaticResource GridView}">
-                    <ListView x:Name="lbImageGallery" 
+                  <ListView x:Name="lbImageGallery" ScrollViewer.VerticalScrollBarVisibility="Disabled" ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                              ScrollViewer.CanContentScroll="True"
                          ItemsSource="{Binding}" 
                          ItemsPanel="{DynamicResource ImageGalleryItemsPanelTemplate}" 
                          ItemTemplate="{StaticResource ListImageDataTemplate}" 
                          Style="{StaticResource GridViewList}"/>
-                </ScrollViewer>
+                   
             </DockPanel>
         </Grid>
     </k:KinectRegion>
