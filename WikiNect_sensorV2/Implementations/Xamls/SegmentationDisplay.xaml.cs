@@ -216,15 +216,7 @@ namespace WikiNectLayout.Implementions.Xamls
             {
                 //register the position of HandPointer in grip state
                 win_tempPoint = new System.Windows.Point() { X = this.handPointer.Position.X * this.orgImage.ActualWidth, Y = this.handPointer.Position.Y * this.orgImage.ActualHeight };
-                Ellipse ellipse = new Ellipse
-                {
-                    Width = 10,
-                    Height = 10,
-                    Fill = System.Windows.Media.Brushes.Red
-                };
-                Canvas.SetTop(ellipse, win_tempPoint.Y - 5);
-                Canvas.SetLeft(ellipse, win_tempPoint.X - 5);
-                canvas.Children.Add(ellipse);
+
                 //Converting System.Windows.Point to System.Drawing.Point
                 int x = Convert.ToInt32(win_tempPoint.X);
                 int y = Convert.ToInt32(win_tempPoint.Y);
