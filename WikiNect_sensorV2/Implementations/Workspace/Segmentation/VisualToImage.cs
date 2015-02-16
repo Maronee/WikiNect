@@ -118,10 +118,12 @@ namespace Segmentation
         {
             BitmapFrame frame = BitmapFrame.Create(croppedRtb);
             encoder.Frames.Add(frame);
+           
+
             //saving the cropped image under targetFileName
             using (var stream = File.Create(fileName))
-            {              
-                encoder.Save(stream);                   
+            {
+                encoder.Save(stream);
             }
         }
         #endregion
@@ -147,7 +149,7 @@ namespace Segmentation
             //get the directory two level above of Debug directory, which results "wherever\Segmentation\Segmentation"
             var parent = Directory.GetParent(Directory.GetParent(path).ToString()).ToString();
             //creating a relative path with the aid of above parameters(fn, ext, parent) 
-            string targetFileName = parent + "/Implementions/Workspace/Segmentation/CroppedPictures/" + fn + "_Cropped" + crpPanelRefreshCount + strg_nameExtendII + strg_saveNameCount + ext;
+            string targetFileName = @"Implementions/Workspace/Segmentation/Cropped/" + fn + "_Cropped" + crpPanelRefreshCount + strg_nameExtendII + strg_saveNameCount + ext;
 
             return targetFileName;
         }

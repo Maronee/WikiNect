@@ -308,7 +308,7 @@
     <Content Include="Libaries\Database\RabbitMQ.ServiceModel.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Implementations\Workspace\Segmentation\CroppedPictures\" />
+    <Folder Include="Implementations\Workspace\Segmentation\Cropped\" />
     <Folder Include="Libaries\Kinect\" />
   </ItemGroup>
   <ItemGroup>

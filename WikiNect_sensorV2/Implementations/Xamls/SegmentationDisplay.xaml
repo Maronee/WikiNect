@@ -142,7 +142,7 @@
                 </Grid>
                 <kElements:GripAndPressable x:Name="imageContainer" Grid.Column="1" Grid.Row="1" GripStart="KinectDrawing_Grip" HandPointerTapped="OriginalImagePressed">
                     <kElements:KinImage Grid.Column="1" Grid.Row="1" x:Name="orgImage" Source="WikiNect.png" Width="1633.5" Height="900" HorizontalAlignment="Center" VerticalAlignment="Stretch"  MouseLeftButtonDown="OrgImage_MouseLeftButtonDown" Stretch="None" Grid.ColumnSpan="2"/>
-                </kElements:GripAndPressable>                
+              </kElements:GripAndPressable>                
             </Grid>
         </Grid>
     </DockPanel>

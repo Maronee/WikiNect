@@ -14,7 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Drawing;
 using System.Drawing.Drawing2D;
-
+using System.Windows.Shapes;
 
 using Microsoft.Kinect.Input;
 using Microsoft.Kinect.Toolkit.Input;
@@ -216,7 +216,15 @@ namespace WikiNectLayout.Implementions.Xamls
             {
                 //register the position of HandPointer in grip state
                 win_tempPoint = new System.Windows.Point() { X = this.handPointer.Position.X * this.orgImage.ActualWidth, Y = this.handPointer.Position.Y * this.orgImage.ActualHeight };
-
+                Ellipse ellipse = new Ellipse
+                {
+                    Width = 10,
+                    Height = 10,
+                    Fill = System.Windows.Media.Brushes.Red
+                };
+                Canvas.SetTop(ellipse, win_tempPoint.Y - 5);
+                Canvas.SetLeft(ellipse, win_tempPoint.X - 5);
+                canvas.Children.Add(ellipse);
                 //Converting System.Windows.Point to System.Drawing.Point
                 int x = Convert.ToInt32(win_tempPoint.X);
                 int y = Convert.ToInt32(win_tempPoint.Y);
@@ -290,7 +298,7 @@ namespace WikiNectLayout.Implementions.Xamls
                     startImage = Helper.ImageResize(temp_startImage, orgImage);
                     finalImage = Helper.ConvertImageToWpfImage((System.Drawing.Image)startImage);
                     this.orgImage.Source = finalImage.Source;
-                    startImage_unchanged = startImage.Clone(new Rectangle(0, 0, startImage.Width, startImage.Height), startImage.PixelFormat);
+                    startImage_unchanged = startImage.Clone(new System.Drawing.Rectangle(0, 0, startImage.Width, startImage.Height), startImage.PixelFormat);
                     //creating Graphics from Bitmap bitmap_temp (Working with a copy of startImage) in order to Draw Points and Lines on it
                     g = Graphics.FromImage(startImage);
                     crpImage.Source = null;
@@ -302,7 +310,7 @@ namespace WikiNectLayout.Implementions.Xamls
             {
                 startImage = Helper.BitmapImage2Bitmap(imagesource);
                 this.orgImage.Source = imagesource;
-                startImage_unchanged = startImage.Clone(new Rectangle(0, 0, startImage.Width, startImage.Height), startImage.PixelFormat);
+                startImage_unchanged = startImage.Clone(new System.Drawing.Rectangle(0, 0, startImage.Width, startImage.Height), startImage.PixelFormat);
                 //creating Graphics from Bitmap bitmap_temp (Working with a copy of startImage) in order to Draw Points and Lines on it
                 g = Graphics.FromImage(startImage);
                 crpImage.Source = null;
@@ -465,6 +473,8 @@ namespace WikiNectLayout.Implementions.Xamls
                 BitmapEncoder singleSaveEncoder = new JpegBitmapEncoder();
                 BitmapFrame frame = BitmapFrame.Create(singleSave_rtb);
                 singleSaveEncoder.Frames.Add(frame);
+                var dir = System.AppDomain.CurrentDomain.BaseDirectory;
+                Console.WriteLine(dir);
                 //saving the cropped image under targetFileName
                 using (var stream = File.Create(singleSaveName))
                 {
