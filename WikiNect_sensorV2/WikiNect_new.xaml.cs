@@ -98,6 +98,7 @@ namespace WikiNectLayout
             {
                 sensor.Open();
                 WikiNectApp app = (WikiNectApp)Application.Current;
+                app.kinectRegion = kinectRegion;
                 app.kinectSensor = sensor;
             }
         }

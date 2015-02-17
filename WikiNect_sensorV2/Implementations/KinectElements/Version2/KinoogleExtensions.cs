@@ -27,7 +27,7 @@ namespace Kinect
         }
 
 
-        private static readonly string gestureDatabase = @"Database/KinoogleDB.gbd";
+        private static readonly string gestureDatabase = @"vgbDatabase/KinoogleDB.gbd";
         private const string leftUp = "leftUp";
         private const string upRight = "upRight";
         private const string leftRight = "leftRight";
@@ -86,6 +86,7 @@ namespace Kinect
                     obj.vgbFrameReader.IsPaused = true;
                     obj.vgbFrameReader.FrameArrived += obj.vgbFrameReader_FrameArrived;
                 }
+
                 using (VisualGestureBuilderDatabase database = new VisualGestureBuilderDatabase(gestureDatabase))
                 {
                     obj.vgbFrameSource.AddGestures(database.AvailableGestures);

@@ -16,8 +16,12 @@ using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Windows.Shapes;
 
+using Microsoft.Kinect;
+using Microsoft.Kinect.Wpf.Controls;
+using Microsoft.Kinect.VisualGestureBuilder;
+
 using Microsoft.Kinect.Input;
-using Microsoft.Kinect.Toolkit.Input;
+//using Microsoft.Kinect.Toolkit.Input;
 
 using Kinect;
 using DataConnection;
@@ -25,12 +29,14 @@ using DataStore;
 using Segmentation;
 using WikiNectLayout.Implementions.Xamls;
 
+
+
 namespace WikiNectLayout.Implementions.Xamls
 {
     /// <summary>
     /// Interaktionslogik für SegmentationDisplay.xaml
     /// </summary>
-    public partial class SegmentationDisplay : UserControl
+    public partial class SegmentationDisplay : UserControl, KinoogleInterface
     {
 
         #region Variables
@@ -98,6 +104,7 @@ namespace WikiNectLayout.Implementions.Xamls
 
         void SegmentationDisplay_Loaded(object sender, RoutedEventArgs e)
         {
+            this.startKinoogleDetection();
             var window = KinectCoreWindow.GetForCurrentThread();
             window.PointerMoved += window_PointerMoved;
 
@@ -868,7 +875,342 @@ namespace WikiNectLayout.Implementions.Xamls
         //}
         #endregion
 
+        #region Kinoogle implementation
+        KinectRegion _kinectRegion;
+        KinectSensor _kinectSensor;
+        Body[] _bodies;
+        ulong _currentTrackedId;
+        CameraSpacePoint _leftHandOrigin;
+        CameraSpacePoint _rightHandOrigin;
+        CameraSpacePoint _leftHandCycle;
+        CameraSpacePoint _rightHandCycle;
+        BodyFrameReader _bodyReader;
+        int _counter;
+        int _currentCount;
+        bool _constantHandState;
+        KinoogleExtensions.HandGesture _gestureState;
+        VisualGestureBuilderFrameSource _vgbFrameSource;
+        VisualGestureBuilderFrameReader _vgbFrameReader;
 
+        KinectRegion KinoogleInterface.kinectRegion
+        {
+            get
+            {
+                return _kinectRegion;
+            }
+            set
+            {
+                _kinectRegion = value;
+            }
+        }
+
+        public KinectSensor kinectSensor
+        {
+            get
+            {
+                return _kinectSensor;
+            }
+            set
+            {
+                _kinectSensor = value;
+            }
+        }
+
+        Body[] KinoogleInterface.bodies
+        {
+            get
+            {
+                return _bodies;
+            }
+            set
+            {
+                _bodies = value;
+            }
+        }
+
+        public ulong currentTrackedId
+        {
+            get
+            {
+                return _currentTrackedId;
+            }
+            set
+            {
+                _currentTrackedId = value;
+            }
+        }
+
+        public CameraSpacePoint leftHandOrigin
+        {
+            get
+            {
+                return _leftHandOrigin;
+            }
+            set
+            {
+                _leftHandOrigin = value;
+            }
+        }
+
+        public CameraSpacePoint rightHandOrigin
+        {
+            get
+            {
+                return _rightHandOrigin;
+            }
+            set
+            {
+                _rightHandOrigin = value;
+            }
+        }
+
+        public CameraSpacePoint leftHandCycle
+        {
+            get
+            {
+                return _leftHandCycle;
+            }
+            set
+            {
+                _leftHandCycle = value;
+            }
+        }
+
+        public CameraSpacePoint rightHandCycle
+        {
+            get
+            {
+                return _rightHandCycle;
+            }
+            set
+            {
+                _rightHandCycle = value;
+            }
+        }
+
+        public BodyFrameReader bodyReader
+        {
+            get
+            {
+                return _bodyReader;
+            }
+            set
+            {
+                _bodyReader = value;
+            }
+        }
+
+        public int counter
+        {
+            get
+            {
+                return _counter;
+            }
+            set
+            {
+                _counter = value;
+            }
+        }
+
+        public int currentCount
+        {
+            get
+            {
+                return _currentCount;
+            }
+            set
+            {
+                _currentCount = value;
+            }
+        }
+
+        public bool constantHandState
+        {
+            get
+            {
+                return _constantHandState;
+            }
+            set
+            {
+                _constantHandState = value;
+            }
+        }
+
+        public KinoogleExtensions.HandGesture gestureState
+        {
+            get
+            {
+                return _gestureState;
+            }
+            set
+            {
+                _gestureState = value;
+            }
+        }
+
+        public VisualGestureBuilderFrameSource vgbFrameSource
+        {
+            get
+            {
+                return _vgbFrameSource;
+            }
+            set
+            {
+                _vgbFrameSource = value;
+            }
+        }
+
+        public VisualGestureBuilderFrameReader vgbFrameReader
+        {
+            get
+            {
+                return _vgbFrameReader;
+            }
+            set
+            {
+                _vgbFrameReader = value;
+            }
+        }
+
+        public void startKinoogleDetection()
+        {
+            this.initKinoogle();
+        }
+
+
+        public void bodyReader_FrameArrived(object sender, BodyFrameArrivedEventArgs e)
+        {
+            this.kinoogleBodyFrameHandler(e);
+        }
+
+        public void vgbFrameReader_FrameArrived(object sender, Microsoft.Kinect.VisualGestureBuilder.VisualGestureBuilderFrameArrivedEventArgs e)
+        {
+            this.kinoogleVgbFrameHandler(e);
+        }
+
+        public void onPan(float xDiff, float yDiff)
+        {
+        }
+
+        public void onRotate()
+        {
+        }
+
+        public void onTilt()
+        {
+        }
+
+        public void onZoom()
+        {
+
+        }
+
+        public void onUpUp(bool isDetected, float confidence)
+        {
+            if (isDetected) { Cropping(); }            
+        }
+
+        public void onUpRight(bool isDetected, float confidence)
+        {
+            if (isDetected)
+            {
+                if (!isImgLoaded)
+                {
+                    status_TextBox.Text = "Pick A Photo";
+                }
+
+                else if (cropMode == CropMode.None)
+                {
+                    cropMode = CropMode.RectMode;
+                    croppingInit = true;
+                    status_TextBox.Text = "Rectangular Mode";
+                }
+
+                else if (this.IsCroppingDone)
+                {
+                    Refresh();
+                    cropMode = CropMode.RectMode;
+                }
+
+                else if (cropMode == CropMode.PolygonMode)
+                {
+                    cropMode = CropMode.RectMode;
+                    croppingInit = true;
+                    isRectCropping = true;
+                    status_TextBox.Text = "Rectangular Mode";
+
+                }
+            }
+        }
+
+        public void onLeftRight(bool isDetected, float confidence)
+        {
+            if (isDetected) { Undo(); }
+        }
+
+        public void onLeftUp(bool isDetected, float confidence)
+        {
+            if (isDetected)
+            {
+                if (!isImgLoaded)
+                {
+                    status_TextBox.Text = "Pick A Photo";
+                }
+
+                else if (cropMode == CropMode.None)
+                {
+                    cropMode = CropMode.PolygonMode;
+                    croppingInit = true;
+                    status_TextBox.Text = "Polygon Mode";
+
+                }
+
+                else if (this.IsCroppingDone)
+                {
+                    Refresh();
+                    cropMode = CropMode.PolygonMode;
+                }
+
+                else if (cropMode == CropMode.RectMode)
+                {
+                    cropMode = CropMode.PolygonMode;
+                    croppingInit = true;
+                    isPolygonCropping = true;
+                    status_TextBox.Text = "Polygon Mode";
+                }
+            }
+        }
+
+        public void onTouchdown(bool isDetected, float confidence)
+        {
+            if (isDetected) { Save(); }
+        }
+
+        public void onStretched(bool isDetected, float confidence)
+        {
+            if (isDetected) { Refresh(); }
+        }
+
+        public void onTurnRight(bool isDetected, float confidence)
+        {
+
+        }
+
+        public void onTurnLeft(bool isDetected, float confidence)
+        {
+
+        }
+
+        public void onWalkingRight(bool isDetected, float confidence)
+        {
+
+        }
+
+        public void onWalkingLeft(bool isDetected, float confidence)
+        {
+
+        }
+        #endregion
 
     }
 }
