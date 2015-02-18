@@ -287,6 +287,9 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Implementations\Workspace\Segmentation\Cropped\wikinect_icon.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="keyboards\myKeyboard.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -326,9 +329,7 @@
     <Content Include="Libaries\Database\RabbitMQ.Client.dll" />
     <Content Include="Libaries\Database\RabbitMQ.ServiceModel.dll" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Implementations\Workspace\Segmentation\Cropped\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.0,Profile=Client">
       <Visible>False</Visible>
