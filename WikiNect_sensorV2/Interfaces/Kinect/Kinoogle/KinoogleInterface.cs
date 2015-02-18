@@ -32,7 +32,7 @@ namespace Kinect
         VisualGestureBuilderFrameReader vgbFrameReader { get; set; }
 
         double usedDistance { get; set; }
-
+        float mCycle { get; set; }
         string currentGesture { get; set; }
 
         void startKinoogleDetection();
@@ -43,7 +43,7 @@ namespace Kinect
         #region HandStateGesture
         void onPan(float xDiff, float yDiff);
         void onRotate(double mDiff, bool right);
-        void onTilt();
+        void onTilt(double mDiff, bool forward);
         void onZoom(double distDelta);
         #endregion
         #region vgbGesture

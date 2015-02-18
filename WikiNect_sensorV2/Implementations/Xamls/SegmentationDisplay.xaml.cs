@@ -925,6 +925,7 @@ namespace WikiNectLayout.Implementions.Xamls
         VisualGestureBuilderFrameReader _vgbFrameReader;
         double _usedDistance;
         string _currentGesture;
+        float _mCycle;
         KinectRegion KinoogleInterface.kinectRegion
         {
             get
@@ -1132,6 +1133,17 @@ namespace WikiNectLayout.Implementions.Xamls
             }
         }
 
+        public float mCycle
+        {
+            get
+            {
+                return _mCycle;
+            }
+            set
+            {
+                _mCycle = value;
+            }
+        }
 
         public void startKinoogleDetection()
         {
@@ -1159,10 +1171,14 @@ namespace WikiNectLayout.Implementions.Xamls
             y = y.CmToPx();
 
             orgImage.RenderTransformOrigin = new System.Windows.Point(.5, .5);
-            TranslateTransform tt = new TranslateTransform();
-            tt.X = x;
-            tt.Y = y;
-            orgImage.RenderTransform = tt;
+
+            //TranslateTransform tt = new TranslateTransform();
+            //tt.X = x;
+            //tt.Y = y;
+            imageTranslateTransform.X = x;
+            imageTranslateTransform.Y = y;
+                        
+            //orgImage.RenderTransform = tt;
         }
 
         public void onRotate(double mDiff, bool right)
@@ -1170,36 +1186,44 @@ namespace WikiNectLayout.Implementions.Xamls
             orgImage.RenderTransformOrigin = new System.Windows.Point(.5, .5);
             if (right)
             {
-                RotateTransform trans = new RotateTransform(360 * mDiff);
-                orgImage.RenderTransform = trans;
+                imageRotateTransform.Angle = 360 * mDiff;
+                //RotateTransform trans = new RotateTransform(360 * mDiff);
+                //orgImage.RenderTransform = trans;
             }
             else
             {
-                RotateTransform trans = new RotateTransform(-360 * mDiff);
-                orgImage.RenderTransform = trans;
+                imageRotateTransform.Angle = -360 * mDiff;
+                //RotateTransform trans = new RotateTransform(-360 * mDiff);
+                //orgImage.RenderTransform = trans;
             }
         }
 
-        public void onTilt()
+        public void onTilt(double mDiff, bool forward)
         {
+            orgImage.RenderTransformOrigin = new System.Windows.Point(.5, .5);
+            //double angle = 360 * mDiff;
+            if (forward)
+            {
+                imageRotateTransform.Angle = 360 * mDiff;
+                //RotateTransform trans = new RotateTransform(360 * mDiff);
+                //orgImage.RenderTransform = trans;
+            }
+            else
+            {
+                imageRotateTransform.Angle = -360 * mDiff;
+                //RotateTransform trans = new RotateTransform(-360 * mDiff);
+                //orgImage.RenderTransform = trans;
+            }
         }
 
         public void onZoom(double distDelta)
         {
-            //double zoom = 0;
-            //if (Math.Abs(1 - distDelta) > 1)
-            //{
-            //    zoom = distDelta > 0 ? 1 : -1;
-            //}
-            //else if (Math.Abs(1 - distDelta) < 1 && Math.Abs(1 - distDelta) > 0.2)
-            //{
-            //    zoom = distDelta > 0 ? 1 : -1;
-            //}
+            
             orgImage.RenderTransformOrigin = new System.Windows.Point(.5, .5);
-            ScaleTransform st = new ScaleTransform();
-            st.ScaleX = 1 + distDelta;
-            st.ScaleY = 1 + distDelta;
-            orgImage.RenderTransform = st;
+            //ScaleTransform st = new ScaleTransform();
+            imageScaleTransform.ScaleX = 1 + distDelta;
+            imageScaleTransform.ScaleY = 1 + distDelta;
+            //orgImage.RenderTransform = st;
             //double slidingScalex = imageScaleTransform.ScaleX / 2 * distDelta;
             //double slidingScaley = imageScaleTransform.ScaleY / 2 * distDelta;
             //imageScaleTransform.ScaleX = imageScaleTransform.ScaleY += slidingScalex;

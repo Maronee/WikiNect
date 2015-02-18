@@ -157,9 +157,8 @@
                 <kElements:KinImage GripStart="KinectDrawing_Grip" Grid.Column="1" Grid.Row="1" x:Name="orgImage" Source="WikiNect.png" Width="1633.5" Height="900"   MouseLeftButtonDown="OrgImage_MouseLeftButtonDown" Stretch="None" Grid.ColumnSpan="2">
                     <kElements:KinImage.RenderTransform>
                         <TransformGroup>
-                            
-                                <RotateTransform x:Name="imageRotateTransform"/>
-                                <ScaleTransform x:Name="imageScaleTransform" />
+                            <RotateTransform x:Name="imageRotateTransform"/>
+                            <ScaleTransform x:Name="imageScaleTransform" />
                             <TranslateTransform x:Name="imageTranslateTransform" />
                         </TransformGroup>
                     </kElements:KinImage.RenderTransform>
