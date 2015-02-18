@@ -6,6 +6,9 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using Kinect;
 using System.Windows;
+using Microsoft.Kinect.Input;
+using Microsoft.Kinect.Wpf.Controls;
+using Microsoft.Kinect.Toolkit.Input;
 
 namespace Kinect
 {
@@ -18,7 +21,7 @@ namespace Kinect
     //public delegate void ImageGrippedEventHandler(object sender, HandPointerEventArgs e);
     //public delegate void ImagePressedEventHandler(object sender, HandPointerEventArgs e);
 
-    public class KinImage : Image
+    public class KinImage : Image, IKinectControl
 
     {
         public event ChangedEventHandler Changed;
@@ -40,6 +43,85 @@ namespace Kinect
         {
             MousePointerHandler();
         }
+
+
+        public bool IsManipulatable
+        {
+            get { return true; }
+        }
+
+        public bool IsPressable
+        {
+            get { return false; }
+        }
+        public IKinectController CreateController(IInputModel inputModel, KinectRegion kinectRegion)
+        {
+            KinectInteractionController kc = new KinectInteractionController(inputModel, kinectRegion);
+            kc.ManipulatableInputModel.ManipulationStarted += ManipulatableInputModel_ManipulationStarted;
+            kc.ManipulatableInputModel.ManipulationUpdated += ManipulatableInputModel_ManipulationUpdated;
+            kc.ManipulatableInputModel.ManipulationCompleted += ManipulatableInputModel_ManipulationCompleted;
+            return kc;
+        }
+
+        void ManipulatableInputModel_ManipulationUpdated(object sender, Microsoft.Kinect.Input.KinectManipulationUpdatedEventArgs e)
+        {
+            this.GripUpdate += Gripable_GripUpdate;
+            onGripUpdate(sender, e);
+        }
+
+        void Gripable_GripUpdate(object sender, KinectManipulationUpdatedEventArgs e)
+        {
+
+        }
+
+        void ManipulatableInputModel_ManipulationStarted(object sender, Microsoft.Kinect.Input.KinectManipulationStartedEventArgs e)
+        {
+            this.GripStart += Gripable_GripStart;
+            onGripStart(sender, e);
+        }
+
+        void Gripable_GripStart(object sender, KinectManipulationStartedEventArgs e)
+        {
+
+        }
+
+        void ManipulatableInputModel_ManipulationCompleted(object sender, Microsoft.Kinect.Input.KinectManipulationCompletedEventArgs e)
+        {
+            this.GripComplete += Gripable_GripComplete;
+            onGripComplete(sender, e);
+        }
+
+        void Gripable_GripComplete(object sender, KinectManipulationCompletedEventArgs e)
+        {
+
+        }
+
+        public delegate void GripStartHandler(object sender, KinectManipulationStartedEventArgs e);
+
+        public event GripStartHandler GripStart;
+        public void onGripStart(object sender, KinectManipulationStartedEventArgs e)
+        {
+            GripStart(sender, e);
+        }
+
+        public delegate void GripUpdateHandler(object sender, KinectManipulationUpdatedEventArgs e);
+
+        public event GripUpdateHandler GripUpdate;
+
+        public void onGripUpdate(object sender, KinectManipulationUpdatedEventArgs e)
+        {
+            GripUpdate(sender, e);
+        }
+
+        public delegate void GripCompleteHandler(object sender, KinectManipulationCompletedEventArgs e);
+
+        public event GripCompleteHandler GripComplete;
+        public void onGripComplete(object sender, KinectManipulationCompletedEventArgs e)
+        {
+            GripComplete(sender, e);
+        }
+
+
 
         /// <summary>
         /// IsHandPointerOver dependency property for use in the control template triggers
@@ -104,7 +186,5 @@ namespace Kinect
         }
 
 
-        
-        
     }
 }

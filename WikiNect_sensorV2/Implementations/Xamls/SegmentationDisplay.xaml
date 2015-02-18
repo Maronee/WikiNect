@@ -5,13 +5,15 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:kElements="clr-namespace:Kinect"
       xmlns:local="clr-namespace:WikiNectLayout"
+      xmlns:data="clr-namespace:WikiNectLayout.Implementions.Xamls"
       xmlns:k="http://schemas.microsoft.com/kinect/2014"
+      DataContext="{Binding RelativeSource={RelativeSource Self}}"
       mc:Ignorable="d" 
       d:DesignHeight="1079.701" 
       d:DesignWidth="1919.701"
 	>
 
-
+    
     <UserControl.Resources>
 
         <Storyboard x:Key="expandStoryboard">
@@ -99,6 +101,16 @@
 
                     </GroupBox>
                 </StackPanel>
+                <StackPanel>
+                    <GroupBox Header="Status" Foreground="White" Margin="10,0,0,0">
+                        <StackPanel x:Name="handstate">
+                            <Label x:Name="handStateLabel" Width="210" Height="40" Foreground="White"  Content="{Binding Path=gestureState}"  HorizontalContentAlignment="Center"/>
+                        </StackPanel>
+                    </GroupBox>
+                    <GroupBox Header="Kinoogle Gesture" Foreground="White" Margin="10,0,0,0">
+                        <Label x:Name="kinoogleGestureLabel" Width="210" Height="40" Content="{Binding Path=currentGesture}"/>
+                    </GroupBox>
+                </StackPanel>
             </StackPanel>
         </Grid>
 
@@ -140,10 +152,21 @@
                         <Path Width="50.667" Height="60.333" Stretch="Fill" Fill="White" Data="F1 M 48,34.6666L 58.6667,34.6666L 58.6667,117.333L 48,117.333L 48,34.6666 Z M 69.3332,34.6667L 79.9999,34.6667L 79.9999,117.333L 69.3332,117.333L 69.3332,34.6667 Z M 26.6666,34.6667L 37.3333,34.6667L 37.3333,117.333L 26.6666,117.333L 26.6666,34.6667 Z M 90.6667,13.3333C 99.4896,13.3333 106.667,20.5104 106.667,29.3333L 101.333,29.3333L 101.333,117.333C 101.333,126.156 94.1562,133.333 85.3333,133.333L 72,133.333L 34.6667,133.333L 21.3333,133.333C 12.5104,133.333 5.33331,126.156 5.33331,117.333L 5.33331,29.3333L 0,29.3333C 0,20.5104 7.17706,13.3333 16,13.3333L 25.3333,13.3333L 25.3333,12C 25.3333,4.82291 30.692,-3.05176e-005 38.6667,-3.05176e-005L 68,-3.05176e-005C 75.974,-3.05176e-005 81.3333,4.82291 81.3333,12L 81.3333,13.3333L 90.6667,13.3333 Z M 33.3333,12L 33.3333,13.3333L 73.3333,13.3333L 73.3333,12C 73.3333,9.34637 71.539,7.99997 68,7.99997L 38.6667,7.99997C 35.1282,7.99997 33.3333,9.34637 33.3333,12 Z M 85.3333,122.667C 88.2747,122.667 90.6667,120.275 90.6667,117.333L 90.6667,29.3333L 16,29.3333L 16,117.333C 16,120.275 18.3919,122.667 21.3333,122.667L 34.6667,122.667L 72,122.667L 85.3333,122.667 Z "/>
                     </kElements:KinectCircleButton>
                 </Grid>
-                <kElements:GripAndPressable x:Name="imageContainer" Grid.Column="1" Grid.Row="1" GripStart="KinectDrawing_Grip" HandPointerTapped="OriginalImagePressed">
-                    <kElements:KinImage Grid.Column="1" Grid.Row="1" x:Name="orgImage" Source="WikiNect.png" Width="1633.5" Height="900"   MouseLeftButtonDown="OrgImage_MouseLeftButtonDown" Stretch="None" Grid.ColumnSpan="2"/>
-              </kElements:GripAndPressable>                
-            </Grid>
+ <!--<kElements:GripAndPressable x:Name="imageContainer" Grid.Column="1" Grid.Row="1" GripStart="KinectDrawing_Grip" HandPointerTapped="OriginalImagePressed">-->
+                <ScrollViewer Grid.Column="1" Grid.Row="1" VerticalScrollBarVisibility="Hidden" HorizontalScrollBarVisibility="Hidden">
+                <kElements:KinImage GripStart="KinectDrawing_Grip" Grid.Column="1" Grid.Row="1" x:Name="orgImage" Source="WikiNect.png" Width="1633.5" Height="900"   MouseLeftButtonDown="OrgImage_MouseLeftButtonDown" Stretch="None" Grid.ColumnSpan="2">
+                    <kElements:KinImage.RenderTransform>
+                        <TransformGroup>
+                            
+                                <RotateTransform x:Name="imageRotateTransform"/>
+                                <ScaleTransform x:Name="imageScaleTransform" />
+                            <TranslateTransform x:Name="imageTranslateTransform" />
+                        </TransformGroup>
+                    </kElements:KinImage.RenderTransform>
+                </kElements:KinImage>
+                </ScrollViewer>
+
+                <!--</kElements:GripAndPressable>-->              </Grid>
         </Grid>
     </DockPanel>
 </UserControl>

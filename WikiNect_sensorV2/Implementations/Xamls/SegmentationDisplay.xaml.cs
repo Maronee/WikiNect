@@ -29,14 +29,12 @@ using DataStore;
 using Segmentation;
 using WikiNectLayout.Implementions.Xamls;
 
-
-
 namespace WikiNectLayout.Implementions.Xamls
 {
     /// <summary>
     /// Interaktionslogik für SegmentationDisplay.xaml
     /// </summary>
-    public partial class SegmentationDisplay : UserControl, KinoogleInterface
+    public partial class SegmentationDisplay : KinoogleInterface
     {
 
         #region Variables
@@ -93,37 +91,49 @@ namespace WikiNectLayout.Implementions.Xamls
         #region MainWindow
         public SegmentationDisplay(KinImage image)
         {
+            DataContext = this;
             InitializeComponent();
             Segmentation_AddHandler();
             imageInit = image;
             url_Seg = image.url;
             cropMode = CropMode.None;
             FirstRefreshImg();
+            this.startKinoogleDetection();
             this.Loaded += SegmentationDisplay_Loaded;
         }
 
         void SegmentationDisplay_Loaded(object sender, RoutedEventArgs e)
         {
+            //var window = KinectCoreWindow.GetForCurrentThread();
+            //window.PointerMoved += window_PointerMoved;
             this.startKinoogleDetection();
-            var window = KinectCoreWindow.GetForCurrentThread();
-            window.PointerMoved += window_PointerMoved;
+
+            double w = orgImage.ActualWidth;
+            double h = orgImage.ActualHeight;
+            Console.WriteLine(orgImage.ActualWidth);
+            Console.WriteLine(orgImage.ActualHeight);
+            this.orgImage.Width = w;
+            this.orgImage.Height = h;
+            //this.imageContainer.Width = w;
+            //this.imageContainer.Height = h;
 
         }
-        
-        KinectPointerPoint handPointer;
-        void window_PointerMoved(object sender, KinectPointerEventArgs e)
-        {
-            if (IsApplicableKinectPoint(e.CurrentPoint)) 
-            {
-                this.handPointer = e.CurrentPoint;
-            }
-        }
 
-        bool IsApplicableKinectPoint(KinectPointerPoint kinectPoint)
-        {
-            return (kinectPoint.Properties.IsEngaged &&
-              kinectPoint.Properties.IsInRange);
-        }  
+
+        //KinectPointerPoint handPointer;
+        //void window_PointerMoved(object sender, KinectPointerEventArgs e)
+        //{
+        //    if (IsApplicableKinectPoint(e.CurrentPoint)) 
+        //    {
+        //        this.handPointer = e.CurrentPoint;
+        //    }
+        //}
+
+        //bool IsApplicableKinectPoint(KinectPointerPoint kinectPoint)
+        //{
+        //    return (kinectPoint.Properties.IsEngaged &&
+        //      kinectPoint.Properties.IsInRange);
+        //}  
         #endregion
 
         #region SegmentationDisplay Properties
@@ -219,10 +229,29 @@ namespace WikiNectLayout.Implementions.Xamls
             //Rect rect = new Rect(targetLoc.X, targetLoc.Y, orgImage.Width, orgImage.Height);
             //Point p = Microsoft.Kinect.Toolkit.Input.InputPointerManager.TransformInputPointerCoordinatesToWindowCoordinates(e.Position, rect);
 
+
             if (cropMode != CropMode.None && !this.IsCroppingDone)
             {
                 //register the position of HandPointer in grip state
-                win_tempPoint = new System.Windows.Point() { X = this.handPointer.Position.X * this.orgImage.ActualWidth, Y = this.handPointer.Position.Y * this.orgImage.ActualHeight };
+                win_tempPoint = new System.Windows.Point() { X = e.Position.X * this.orgImage.ActualWidth, Y = e.Position.Y * this.orgImage.ActualHeight };
+
+                double w = orgImage.ActualWidth;
+                double h = orgImage.ActualHeight;
+                Console.WriteLine(orgImage.ActualWidth);
+                Console.WriteLine(orgImage.ActualHeight);
+                this.orgImage.Width = w + 1;
+                this.orgImage.Height = h + 1;
+                //this.imageContainer.Width = w + 1;
+                //this.imageContainer.Height = h + 1;
+
+                Console.WriteLine(this.orgImage.Source.Width);
+                Console.WriteLine(this.orgImage.Source.Height);
+                Console.WriteLine(this.orgImage.Width);
+                Console.WriteLine(this.orgImage.Height);
+                Console.WriteLine("Handpointer X: " + e.Position.X + " Y: " + e.Position.Y);
+                Console.WriteLine("Handpointer X: " + e.Position.X * this.orgImage.ActualWidth + " Y: " + e.Position.Y * this.orgImage.ActualHeight);
+                //Console.WriteLine("container width: " + imageContainer.ActualWidth);
+
 
                 //Converting System.Windows.Point to System.Drawing.Point
                 int x = Convert.ToInt32(win_tempPoint.X);
@@ -277,7 +306,7 @@ namespace WikiNectLayout.Implementions.Xamls
             CroppedImagePickMethod();
         }
 
-        
+
         #endregion
 
         #region Private Methodes
@@ -295,6 +324,7 @@ namespace WikiNectLayout.Implementions.Xamls
                 using (Bitmap temp_startImage = Helper.BitmapImage2Bitmap(imagesource))
                 {
                     startImage = Helper.ImageResize(temp_startImage, orgImage);
+                    //startImage = temp_startImage;
                     finalImage = Helper.ConvertImageToWpfImage((System.Drawing.Image)startImage);
                     this.orgImage.Source = finalImage.Source;
                     startImage_unchanged = startImage.Clone(new System.Drawing.Rectangle(0, 0, startImage.Width, startImage.Height), startImage.PixelFormat);
@@ -315,7 +345,6 @@ namespace WikiNectLayout.Implementions.Xamls
                 crpImage.Source = null;
                 status_TextBox.Clear();
             }
-
             isImgLoaded = true;
 
         }
@@ -643,6 +672,9 @@ namespace WikiNectLayout.Implementions.Xamls
                 //register the position of Mouse Clicks
                 win_tempPoint = e.GetPosition(orgImage);
 
+                Console.WriteLine("Mouse X: " + e.GetPosition(orgImage).X);
+                Console.WriteLine("Mouse Y: " + e.GetPosition(orgImage).Y);
+
                 //Converting System.Windows.Point to System.Drawing.Point
                 int x = Convert.ToInt32(win_tempPoint.X);
                 int y = Convert.ToInt32(win_tempPoint.Y);
@@ -891,7 +923,8 @@ namespace WikiNectLayout.Implementions.Xamls
         KinoogleExtensions.HandGesture _gestureState;
         VisualGestureBuilderFrameSource _vgbFrameSource;
         VisualGestureBuilderFrameReader _vgbFrameReader;
-
+        double _usedDistance;
+        string _currentGesture;
         KinectRegion KinoogleInterface.kinectRegion
         {
             get
@@ -1045,6 +1078,7 @@ namespace WikiNectLayout.Implementions.Xamls
             set
             {
                 _gestureState = value;
+                handStateLabel.GetBindingExpression(Label.ContentProperty).UpdateTarget();
             }
         }
 
@@ -1072,6 +1106,33 @@ namespace WikiNectLayout.Implementions.Xamls
             }
         }
 
+        public double usedDistance
+        {
+            get
+            {
+                return _usedDistance;
+            }
+            set
+            {
+                _usedDistance = value;
+            }
+        }
+
+        public string currentGesture
+        {
+            get
+            {
+                return _currentGesture;
+            }
+            set
+            {
+                _currentGesture = value;
+                kinoogleGestureLabel.GetBindingExpression(Label.ContentProperty).UpdateTarget();
+                //kinoogleGestureLabel.GetBindingExpression(Label.ContentProperty).UpdateTarget();
+            }
+        }
+
+
         public void startKinoogleDetection()
         {
             this.initKinoogle();
@@ -1090,24 +1151,64 @@ namespace WikiNectLayout.Implementions.Xamls
 
         public void onPan(float xDiff, float yDiff)
         {
+            // m -> cm
+            double x = xDiff * 100;
+            double y = yDiff * 100;
+            //extension Funktion Cm zu Pixel entsprechend der .Net Normwerte
+            x = x.CmToPx();
+            y = y.CmToPx();
+
+            orgImage.RenderTransformOrigin = new System.Windows.Point(.5, .5);
+            TranslateTransform tt = new TranslateTransform();
+            tt.X = x;
+            tt.Y = y;
+            orgImage.RenderTransform = tt;
         }
 
-        public void onRotate()
+        public void onRotate(double mDiff, bool right)
         {
+            orgImage.RenderTransformOrigin = new System.Windows.Point(.5, .5);
+            if (right)
+            {
+                RotateTransform trans = new RotateTransform(360 * mDiff);
+                orgImage.RenderTransform = trans;
+            }
+            else
+            {
+                RotateTransform trans = new RotateTransform(-360 * mDiff);
+                orgImage.RenderTransform = trans;
+            }
         }
 
         public void onTilt()
         {
         }
 
-        public void onZoom()
+        public void onZoom(double distDelta)
         {
+            //double zoom = 0;
+            //if (Math.Abs(1 - distDelta) > 1)
+            //{
+            //    zoom = distDelta > 0 ? 1 : -1;
+            //}
+            //else if (Math.Abs(1 - distDelta) < 1 && Math.Abs(1 - distDelta) > 0.2)
+            //{
+            //    zoom = distDelta > 0 ? 1 : -1;
+            //}
+            orgImage.RenderTransformOrigin = new System.Windows.Point(.5, .5);
+            ScaleTransform st = new ScaleTransform();
+            st.ScaleX = 1 + distDelta;
+            st.ScaleY = 1 + distDelta;
+            orgImage.RenderTransform = st;
+            //double slidingScalex = imageScaleTransform.ScaleX / 2 * distDelta;
+            //double slidingScaley = imageScaleTransform.ScaleY / 2 * distDelta;
+            //imageScaleTransform.ScaleX = imageScaleTransform.ScaleY += slidingScalex;
 
         }
 
         public void onUpUp(bool isDetected, float confidence)
         {
-            if (isDetected) { Cropping(); }            
+            if (isDetected) { Cropping(); }
         }
 
         public void onUpRight(bool isDetected, float confidence)
@@ -1145,7 +1246,7 @@ namespace WikiNectLayout.Implementions.Xamls
 
         public void onLeftRight(bool isDetected, float confidence)
         {
-            if (isDetected) { Undo(); }
+            if (isDetected) { Cropping(); }
         }
 
         public void onLeftUp(bool isDetected, float confidence)
@@ -1183,7 +1284,7 @@ namespace WikiNectLayout.Implementions.Xamls
 
         public void onTouchdown(bool isDetected, float confidence)
         {
-            if (isDetected) { Save(); }
+            if (isDetected) { Undo(); }
         }
 
         public void onStretched(bool isDetected, float confidence)
@@ -1210,8 +1311,7 @@ namespace WikiNectLayout.Implementions.Xamls
         {
 
         }
-        #endregion
-
+        #endregion    }
     }
 }
 
